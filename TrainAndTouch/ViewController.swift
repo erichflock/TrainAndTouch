@@ -13,38 +13,39 @@ import AVFoundation
 import Vision
 
 class ViewController: UIViewController {
-
-    @IBOutlet var cameraView: UIView!
     
-    // Properties
+    @IBOutlet var cameraView: UIView!
+    @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var cameraViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var contentLabel: UILabel!
+    @IBOutlet var contentLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet var contentLabelLeadingConstraint: NSLayoutConstraint!
+    
     let faceDetection = VNDetectFaceRectanglesRequest()
     let faceLandmarks = VNDetectFaceLandmarksRequest()
     let faceLandmarksDetectionRequest = VNSequenceRequestHandler()
     let faceDetectionRequest = VNSequenceRequestHandler()
     
-    var leftEyeImageView  : UIImageView!
-    var rightEyeImageView : UIImageView!
-    
     let shapeLayer = CAShapeLayer()
-    
-    var session: AVCaptureSession?
-    let previewRect = CGRect(x: 10, y: 10, width: 10, height: 10)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cameraView.isHidden = false
         
         initializeCameraSession()
     }
     
     func initializeCameraSession() {
         
-        //1: Create a new AV Session
+        // Create a new AV Session
         let avSession = AVCaptureSession()
         
         // Get camera devices
         let devices = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices
         
-        //2: Select a capture device
+        // Select a capture device
         do {
             if let captureDevice = devices.first {
                 let captureDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
@@ -54,7 +55,7 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
         
-        //3: Show output on a preview layer
+        // Show output on a preview layer
         let captureOutput = AVCaptureVideoDataOutput()
         captureOutput.setSampleBufferDelegate(self, queue:
             DispatchQueue(label: "videoQueue"))
@@ -62,13 +63,14 @@ class ViewController: UIViewController {
         
         let layer = AVCaptureVideoPreviewLayer(session: avSession)
         
-        layer.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
+        let frameWidth = cameraViewWidthConstraint.constant
+        let frameHeight = cameraViewHeightConstraint.constant
+        
+        layer.frame = CGRect(x: 0, y: 0, width: frameWidth, height: frameHeight)
         layer.connection?.videoOrientation = .landscapeRight
         cameraView.layer.addSublayer(layer)
         
         shapeLayer.frame = cameraView.bounds
-        shapeLayer.strokeColor = UIColor.blue.cgColor
-        shapeLayer.lineWidth = 4.0
         
         //needs to filp coordinate system for Vision
         shapeLayer.setAffineTransform(CGAffineTransform(scaleX: -1, y: -1))
@@ -83,7 +85,7 @@ class ViewController: UIViewController {
         try? faceDetectionRequest.perform([faceDetection], on: image)
         if let results = faceDetection.results as? [VNFaceObservation] {
             if !results.isEmpty {
-                print("Face Detected")
+                //print("Face Detected")
                 faceLandmarks.inputFaceObservations = results
                 detectLandmarks(on: image)
                 DispatchQueue.main.async {
@@ -99,7 +101,21 @@ class ViewController: UIViewController {
         if let landmarksResults = faceLandmarks.results as? [VNFaceObservation] {
             for observation in landmarksResults {
                 DispatchQueue.main.async {
+                    
+                    if let boundingBox = self.faceLandmarks.inputFaceObservations?.first?.boundingBox {
+                        
+                        let faceBoundingBox = boundingBox.scaled(to: self.view.bounds.size)
+                        
+                        if let leftPupilLandmarkPoint = observation.landmarks?.leftPupil {
+                            if let point = leftPupilLandmarkPoint.normalizedPoints.first {
+                                self.moveContentLabel(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
+                            }
+                        }
+                    }
+                    
+                    //Uncomment the following lines to draw the face contour
                     if let boundingBox =    self.faceLandmarks.inputFaceObservations?.first?.boundingBox {
+
                         let faceBoundingBox = boundingBox.scaled(to: self.cameraView.bounds.size)
                         let faceContour = observation.landmarks?.allPoints
                         self.convertPointsForFace(faceContour, faceBoundingBox)
@@ -112,6 +128,12 @@ class ViewController: UIViewController {
     func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect) {
         if let points = landmark?.normalizedPoints{
             
+//            print("Amount of Points: \(points.count)")
+//            let x = points.first?.x ?? 0
+//            let y = points.first?.y ?? 0
+//            print("X: \(x), Y: \(y)")
+            
+            //Use faceLandmarkVertices to move the content
             let faceLandmarkVertices = points.map { (point: (CGPoint)) -> Vertex in
                 let pointX = point.x * boundingBox.width + boundingBox.origin.x
                 let pointY = point.y * boundingBox.height + boundingBox.origin.y
@@ -126,21 +148,14 @@ class ViewController: UIViewController {
     }
     
     func draw(vertices: [Vertex], boundingBox: CGRect) {
-        let newLayer = CAShapeLayer()
-        newLayer.strokeColor = UIColor.blue.cgColor
-        newLayer.lineWidth = 4.0
-        var newVertices = vertices
         
-        newVertices.remove(at: newVertices.count - 1)
-        
-        
-        let triangles = Delaunay().triangulate(newVertices)
+        let triangles = Delaunay().triangulate(vertices)
         
         for triangle in triangles {
             let triangleLayer = CAShapeLayer()
             
             triangleLayer.path = triangle.toPath()
-            triangleLayer.strokeColor = UIColor.red.cgColor
+            triangleLayer.strokeColor = UIColor.blue.cgColor
             triangleLayer.lineWidth = 1.0
             triangleLayer.fillColor = UIColor.clear.cgColor
             triangleLayer.backgroundColor = UIColor.clear.cgColor
@@ -148,30 +163,13 @@ class ViewController: UIViewController {
         }
     }
     
-    func drawRectangle(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) {
+    func moveContentLabel(x: CGFloat, y: CGFloat, boundingBox: CGRect) {
         
-        if let viewWithTag = self.cameraView.viewWithTag(100) {
-            viewWithTag.removeFromSuperview()
-        }
+        let pointX = x * boundingBox.width + boundingBox.origin.x
+        let pointY = y * boundingBox.height + boundingBox.origin.y
         
-        let redView = UIView()
-        redView.tag = 100
-        redView.backgroundColor = .red
-        redView.alpha = 0.20
-        redView.frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        self.cameraView.addSubview(redView)
-    }
-    
-    func convert(_ points: UnsafePointer<vector_float2>, with count: Int) -> [(x: CGFloat, y: CGFloat)] {
-        
-        var convertedPoints = [(x: CGFloat, y: CGFloat)]()
-        
-        for i in 0...count {
-            convertedPoints.append((CGFloat(points[i].x),  CGFloat(points[i].y)))
-        }
-        
-        return convertedPoints
+        contentLabelLeadingConstraint.constant = pointX
+        contentLabelTopConstraint.constant = pointY
     }
     
     //MARK: AUX Functions
@@ -194,7 +192,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let attachments = CMCopyDictionaryOfAttachments(allocator: kCFAllocatorDefault, target: sampleBuffer, attachmentMode: kCMAttachmentMode_ShouldPropagate)
         let ciImage = CIImage(cvImageBuffer: pixelBuffer!, options: attachments as! [CIImageOption : Any]?)
-        let ciImageWithOrientation = ciImage.oriented(forExifOrientation: Int32(UIImage.Orientation.right             .rawValue))
+        let ciImageWithOrientation = ciImage.oriented(forExifOrientation: Int32(UIImage.Orientation.right.rawValue))
         detectFace(on: ciImageWithOrientation)
     }
 }

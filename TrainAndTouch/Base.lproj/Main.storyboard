@@ -38,10 +38,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="YFx-NW-diP" firstAttribute="centerX" secondItem="5A9-Cf-1ug" secondAttribute="centerX" id="11r-Y2-W24"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhd-ME-FQr" secondAttribute="bottom" constant="30" id="MC4-KY-IfT"/>
+                                    <constraint firstItem="YFx-NW-diP" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="503.5" id="iZj-Ai-sau"/>
+                                    <constraint firstItem="YFx-NW-diP" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="396.5" id="tjK-g2-dK5"/>
                                     <constraint firstItem="Rhd-ME-FQr" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="16" id="zNn-QM-Uef"/>
-                                    <constraint firstItem="YFx-NW-diP" firstAttribute="centerY" secondItem="5A9-Cf-1ug" secondAttribute="centerY" id="zYm-YD-uGn"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -56,6 +56,11 @@
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="Rhd-ME-FQr" id="706-jU-NTj"/>
+                        <outlet property="cameraViewHeightConstraint" destination="VxH-Cc-ang" id="rLa-Hl-v32"/>
+                        <outlet property="cameraViewWidthConstraint" destination="8O3-Sh-tbI" id="9md-VS-G0x"/>
+                        <outlet property="contentLabel" destination="YFx-NW-diP" id="ClL-au-Wro"/>
+                        <outlet property="contentLabelLeadingConstraint" destination="iZj-Ai-sau" id="ADe-7a-ucU"/>
+                        <outlet property="contentLabelTopConstraint" destination="tjK-g2-dK5" id="ZlH-DA-WsF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

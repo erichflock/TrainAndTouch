@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cameraView.isHidden = false
+        cameraView.isHidden = true
         
         initializeCameraSession()
     }
@@ -174,11 +174,8 @@ class ViewController: UIViewController {
         let pointX = x * boundingBox.width + boundingBox.origin.x
         let pointY = y * boundingBox.height + boundingBox.origin.y
         
-        if hasMovedHorizontally(point: pointX) {
+        if hasMovedHorizontally(point: pointX) || hasMovedVertically(point: pointY) {
             contentLabelTraillingConstant.constant = pointX
-        }
-        
-        if hasMovedVertically(point: pointY) {
             contentLabelBottomConstraint.constant = pointY
         }
         

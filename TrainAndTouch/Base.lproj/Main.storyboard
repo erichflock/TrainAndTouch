@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="20" width="1112" height="814"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Train &amp; Touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFx-NW-diP">
-                                        <rect key="frame" x="503.5" y="396.5" width="105" height="21"/>
+                                        <rect key="frame" x="977" y="763" width="105" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -38,9 +38,9 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="YFx-NW-diP" secondAttribute="bottom" constant="30" id="3fA-8f-Cgb"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhd-ME-FQr" secondAttribute="bottom" constant="30" id="MC4-KY-IfT"/>
-                                    <constraint firstItem="YFx-NW-diP" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="503.5" id="iZj-Ai-sau"/>
-                                    <constraint firstItem="YFx-NW-diP" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="396.5" id="tjK-g2-dK5"/>
+                                    <constraint firstAttribute="trailing" secondItem="YFx-NW-diP" secondAttribute="trailing" constant="30" id="iri-so-HEf"/>
                                     <constraint firstItem="Rhd-ME-FQr" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="16" id="zNn-QM-Uef"/>
                                 </constraints>
                             </view>
@@ -59,8 +59,8 @@
                         <outlet property="cameraViewHeightConstraint" destination="VxH-Cc-ang" id="rLa-Hl-v32"/>
                         <outlet property="cameraViewWidthConstraint" destination="8O3-Sh-tbI" id="9md-VS-G0x"/>
                         <outlet property="contentLabel" destination="YFx-NW-diP" id="ClL-au-Wro"/>
-                        <outlet property="contentLabelLeadingConstraint" destination="iZj-Ai-sau" id="ADe-7a-ucU"/>
-                        <outlet property="contentLabelTopConstraint" destination="tjK-g2-dK5" id="ZlH-DA-WsF"/>
+                        <outlet property="contentLabelBottomConstraint" destination="3fA-8f-Cgb" id="1IN-LY-VlC"/>
+                        <outlet property="contentLabelTraillingConstant" destination="iri-so-HEf" id="V42-ej-Sph"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

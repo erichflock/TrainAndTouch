@@ -19,8 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet var cameraViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet var contentLabel: UILabel!
-    @IBOutlet var contentLabelTopConstraint: NSLayoutConstraint!
-    @IBOutlet var contentLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var contentLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var contentLabelTraillingConstant: NSLayoutConstraint!
     
     let faceDetection = VNDetectFaceRectanglesRequest()
     let faceLandmarks = VNDetectFaceLandmarksRequest()
@@ -167,9 +167,9 @@ class ViewController: UIViewController {
         
         let pointX = x * boundingBox.width + boundingBox.origin.x
         let pointY = y * boundingBox.height + boundingBox.origin.y
-        
-        contentLabelLeadingConstraint.constant = pointX
-        contentLabelTopConstraint.constant = pointY
+
+        contentLabelBottomConstraint.constant = pointY
+        contentLabelTraillingConstant.constant = pointX
     }
     
     //MARK: AUX Functions

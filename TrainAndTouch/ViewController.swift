@@ -29,6 +29,10 @@ class ViewController: UIViewController {
     
     let shapeLayer = CAShapeLayer()
     
+    var lastX: CGFloat?
+    var lastY: CGFloat?
+    let variationThreshold: CGFloat = 4.5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -167,12 +171,51 @@ class ViewController: UIViewController {
         
         let pointX = x * boundingBox.width + boundingBox.origin.x
         let pointY = y * boundingBox.height + boundingBox.origin.y
-
-        contentLabelBottomConstraint.constant = pointY
-        contentLabelTraillingConstant.constant = pointX
+        
+        if hasMovedHorizontally(point: pointX) {
+            contentLabelTraillingConstant.constant = pointX
+        }
+        
+        if hasMovedVertically(point: pointY) {
+            contentLabelBottomConstraint.constant = pointY
+        }
+        
+        lastX = pointX
+        lastY = pointY
     }
     
     //MARK: AUX Functions
+    
+    func hasMovedHorizontally(point: CGFloat) ->Bool {
+        
+        guard let lastX = lastX else {
+            return true
+        }
+        
+        let difference = point - lastX
+        
+        if difference > variationThreshold || difference < -variationThreshold {
+            return true
+        }
+        
+        return false
+    }
+    
+    func hasMovedVertically(point: CGFloat) ->Bool {
+        
+        guard let lastY = lastY else {
+            return true
+        }
+        
+        let difference = point - lastY
+        
+        if difference > variationThreshold || difference < -variationThreshold {
+            return true
+        }
+        
+        return false
+    }
+    
     func getTime() ->NSDate {
         
         let timestamp = NSDate().timeIntervalSince1970

@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     @IBOutlet var contentLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet var contentLabelTraillingConstant: NSLayoutConstraint!
     
+    @IBOutlet var showOrHideCameraViewButton: UIButton!
+    
     let faceDetection = VNDetectFaceRectanglesRequest()
     let faceLandmarks = VNDetectFaceLandmarksRequest()
     let faceLandmarksDetectionRequest = VNSequenceRequestHandler()
@@ -224,6 +226,18 @@ class ViewController: UIViewController {
         
         return time
     }
+    
+    @IBAction func showOrHideCameraView(_ sender: Any) {
+        
+        if cameraView.isHidden {
+            cameraView.isHidden = false
+            showOrHideCameraViewButton.setTitle("Hide Face Tracking", for: .normal)
+        } else {
+            cameraView.isHidden = true
+            showOrHideCameraViewButton.setTitle("Show Face Tracking", for: .normal)
+        }
+    }
+    
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {

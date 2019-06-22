@@ -35,10 +35,19 @@
                                             <constraint firstAttribute="height" constant="200" id="VxH-Cc-ang"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzQ-Hq-vKr">
+                                        <rect key="frame" x="925" y="50" width="137" height="30"/>
+                                        <state key="normal" title="Show Face Tracking"/>
+                                        <connections>
+                                            <action selector="showOrHideCameraView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w4g-R3-2zb"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="YFx-NW-diP" secondAttribute="bottom" constant="30" id="3fA-8f-Cgb"/>
+                                    <constraint firstAttribute="trailing" secondItem="fzQ-Hq-vKr" secondAttribute="trailing" constant="50" id="BjG-99-hm1"/>
+                                    <constraint firstItem="fzQ-Hq-vKr" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="50" id="Hc5-eH-CWw"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhd-ME-FQr" secondAttribute="bottom" constant="30" id="MC4-KY-IfT"/>
                                     <constraint firstAttribute="trailing" secondItem="YFx-NW-diP" secondAttribute="trailing" constant="30" id="iri-so-HEf"/>
                                     <constraint firstItem="Rhd-ME-FQr" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="16" id="zNn-QM-Uef"/>
@@ -61,6 +70,7 @@
                         <outlet property="contentLabel" destination="YFx-NW-diP" id="ClL-au-Wro"/>
                         <outlet property="contentLabelBottomConstraint" destination="3fA-8f-Cgb" id="1IN-LY-VlC"/>
                         <outlet property="contentLabelTraillingConstant" destination="iri-so-HEf" id="V42-ej-Sph"/>
+                        <outlet property="showOrHideCameraViewButton" destination="fzQ-Hq-vKr" id="ghd-YK-MhQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

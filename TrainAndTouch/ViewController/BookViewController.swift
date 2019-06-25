@@ -11,8 +11,9 @@
 import UIKit
 import AVFoundation
 import Vision
+import WebKit
 
-class ViewController: UIViewController {
+class BookViewController: UIViewController {
     
     @IBOutlet var cameraView: UIView!
     @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
@@ -21,6 +22,8 @@ class ViewController: UIViewController {
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var contentLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet var contentLabelTraillingConstant: NSLayoutConstraint!
+    
+    @IBOutlet var pdfWebView: WKWebView!
     
     @IBOutlet var showOrHideCameraViewButton: UIButton!
     
@@ -34,6 +37,12 @@ class ViewController: UIViewController {
     var lastX: CGFloat?
     var lastY: CGFloat?
     let variationThreshold: CGFloat = 4.5
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadPdf()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -224,6 +233,14 @@ class ViewController: UIViewController {
         return time
     }
     
+    func loadPdf() {
+        
+        if let pdf = Bundle.main.url(forResource: "Norman_AffordanceConventionsAndDesign", withExtension: "pdf", subdirectory: "Files")  {
+            let request = NSURLRequest(url: pdf)
+            pdfWebView.load(request as URLRequest)
+        }
+    }
+    
     @IBAction func showOrHideCameraView(_ sender: Any) {
         
         if cameraView.isHidden {
@@ -237,7 +254,7 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension BookViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection)    {
         

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NFU-UO-I5e">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Settings-->
+        <scene sceneID="A11-Lf-BP3">
+            <objects>
+                <viewController id="i9Y-d9-x5i" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VDc-Ch-Uzk">
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sQa-eW-G7S"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="rCs-13-iIZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5wO-sH-0Mo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="420" y="-1179"/>
+        </scene>
+        <!--Book-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,16 +35,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5A9-Cf-1ug">
-                                <rect key="frame" x="0.0" y="20" width="1112" height="814"/>
+                                <rect key="frame" x="0.0" y="20" width="1112" height="764"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Train &amp; Touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFx-NW-diP">
-                                        <rect key="frame" x="977" y="763" width="105" height="21"/>
+                                        <rect key="frame" x="977" y="713" width="105" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhd-ME-FQr">
-                                        <rect key="frame" x="16" y="584" width="300" height="200"/>
+                                        <rect key="frame" x="16" y="534" width="300" height="200"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="8O3-Sh-tbI"/>
@@ -63,6 +79,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Book" image="book" id="7TD-Om-XVw"/>
                     <connections>
                         <outlet property="cameraView" destination="Rhd-ME-FQr" id="706-jU-NTj"/>
                         <outlet property="cameraViewHeightConstraint" destination="VxH-Cc-ang" id="rLa-Hl-v32"/>
@@ -75,6 +92,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="419.24460431654677" y="-448.20143884892087"/>
+        </scene>
+        <!--Video-->
+        <scene sceneID="CRP-dD-2EA">
+            <objects>
+                <viewController id="PLp-33-VUC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="goW-l4-IYk">
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pbM-Gp-rBE"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Video" image="video" id="CaW-QB-dDw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IL2-u7-Ujm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="419" y="294"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="lq3-I8-M6G">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="NFU-UO-I5e" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Gn-FC-Yuc">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="6Bb-mh-PgF"/>
+                        <segue destination="PLp-33-VUC" kind="relationship" relationship="viewControllers" id="PS8-aM-HaC"/>
+                        <segue destination="i9Y-d9-x5i" kind="relationship" relationship="viewControllers" id="scZ-8d-Te0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yTS-VS-VdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-295.14388489208636" y="-448.20143884892087"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="book" width="30" height="30"/>
+        <image name="settings" width="30" height="30"/>
+        <image name="video" width="30" height="30"/>
+    </resources>
 </document>

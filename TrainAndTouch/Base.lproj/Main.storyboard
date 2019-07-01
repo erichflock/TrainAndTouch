@@ -126,14 +126,31 @@
         <!--Video-->
         <scene sceneID="CRP-dD-2EA">
             <objects>
-                <viewController id="PLp-33-VUC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="goW-l4-IYk" customClass="VideoViewController" customModule="TrainAndTouch" customModuleProvider="target">
+                <viewController id="PLp-33-VUC" customClass="VideoViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="goW-l4-IYk">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-XK-UnE">
+                                <rect key="frame" x="212" y="114" width="700" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="8g4-Bc-4pn"/>
+                                    <constraint firstAttribute="width" constant="700" id="w4O-xQ-347"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="trailing" secondItem="J8h-XK-UnE" secondAttribute="trailing" constant="200" id="7OO-8s-AmG"/>
+                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="bottom" secondItem="J8h-XK-UnE" secondAttribute="bottom" constant="70" id="dGX-bU-Osk"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="pbM-Gp-rBE"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Video" image="video" id="CaW-QB-dDw"/>
+                    <connections>
+                        <outlet property="videoView" destination="J8h-XK-UnE" id="gFq-gk-zEI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IL2-u7-Ujm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

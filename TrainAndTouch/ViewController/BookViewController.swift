@@ -24,6 +24,8 @@ class BookViewController: UIViewController {
     @IBOutlet var contentLabelTraillingConstant: NSLayoutConstraint!
     
     @IBOutlet var pdfWebView: WKWebView!
+    @IBOutlet var pdfWebViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var pdfWebViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet var showOrHideCameraViewButton: UIButton!
     
@@ -36,7 +38,7 @@ class BookViewController: UIViewController {
     
     var lastX: CGFloat?
     var lastY: CGFloat?
-    let variationThreshold: CGFloat = 4.5
+    let variationThreshold: CGFloat = 20
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -123,7 +125,8 @@ class BookViewController: UIViewController {
                         
                         if let leftPupilLandmarkPoint = observation.landmarks?.leftPupil {
                             if let point = leftPupilLandmarkPoint.normalizedPoints.first {
-                                self.moveContentLabel(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
+                                //self.moveContentLabel(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
+                                self.movePdfWebView(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
                             }
                         }
                     }
@@ -191,6 +194,33 @@ class BookViewController: UIViewController {
         lastX = pointX
         lastY = pointY
     }
+    
+    func movePdfWebView(x: CGFloat, y: CGFloat, boundingBox: CGRect) {
+        
+        //let pointX = x * boundingBox.width + boundingBox.origin.x
+        //let pointY = y * boundingBox.height + boundingBox.origin.y
+        
+        let pointX = x + boundingBox.origin.x
+        let pointY = y + boundingBox.origin.y
+        
+        print("X: \(pointX)")
+        print("Y: \(pointY)")
+        
+//        if hasMovedHorizontally(point: pointX) || hasMovedVertically(point: pointY) {
+//            pdfWebViewTrailingConstraint.constant = pointX
+//            pdfWebViewBottomConstraint.constant = pointY
+//        }
+        
+//        lastX = pointX
+//        lastY = pointY
+        
+        if hasMovedHorizontally(point: pointX) || hasMovedVertically(point: pointY) {
+            pdfWebViewTrailingConstraint.constant = pointX
+            pdfWebViewBottomConstraint.constant = pointY
+            lastX = pointX
+            lastY = pointY
+        }
+}
     
     //MARK: AUX Functions
     

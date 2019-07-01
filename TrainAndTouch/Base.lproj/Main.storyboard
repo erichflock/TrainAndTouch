@@ -63,8 +63,12 @@
                                         </connections>
                                     </button>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BVa-XG-t0G">
-                                        <rect key="frame" x="200" y="50" width="712" height="709"/>
+                                        <rect key="frame" x="212" y="94" width="700" height="600"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="700" id="6k0-6N-M1Y"/>
+                                            <constraint firstAttribute="height" constant="600" id="cUa-Oz-VRm"/>
+                                        </constraints>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                             <wkPreferences key="preferences"/>
@@ -83,12 +87,10 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="YFx-NW-diP" secondAttribute="bottom" constant="30" id="3fA-8f-Cgb"/>
                                     <constraint firstAttribute="trailing" secondItem="fzQ-Hq-vKr" secondAttribute="trailing" constant="50" id="BjG-99-hm1"/>
-                                    <constraint firstItem="BVa-XG-t0G" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="200" id="CWC-Na-wdx"/>
                                     <constraint firstAttribute="trailing" secondItem="BVa-XG-t0G" secondAttribute="trailing" constant="200" id="F8O-02-RfV"/>
                                     <constraint firstItem="fzQ-Hq-vKr" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="50" id="Hc5-eH-CWw"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhd-ME-FQr" secondAttribute="bottom" constant="30" id="MC4-KY-IfT"/>
-                                    <constraint firstAttribute="bottom" secondItem="BVa-XG-t0G" secondAttribute="bottom" constant="5" id="NL5-xQ-qfK"/>
-                                    <constraint firstItem="BVa-XG-t0G" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="50" id="PDp-Wy-g0d"/>
+                                    <constraint firstAttribute="bottom" secondItem="BVa-XG-t0G" secondAttribute="bottom" constant="70" id="NL5-xQ-qfK"/>
                                     <constraint firstAttribute="trailing" secondItem="YFx-NW-diP" secondAttribute="trailing" constant="30" id="iri-so-HEf"/>
                                     <constraint firstItem="Rhd-ME-FQr" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="16" id="zNn-QM-Uef"/>
                                 </constraints>
@@ -112,6 +114,8 @@
                         <outlet property="contentLabelBottomConstraint" destination="3fA-8f-Cgb" id="1IN-LY-VlC"/>
                         <outlet property="contentLabelTraillingConstant" destination="iri-so-HEf" id="V42-ej-Sph"/>
                         <outlet property="pdfWebView" destination="BVa-XG-t0G" id="x2s-tY-w6F"/>
+                        <outlet property="pdfWebViewBottomConstraint" destination="NL5-xQ-qfK" id="S7g-UQ-67D"/>
+                        <outlet property="pdfWebViewTrailingConstraint" destination="F8O-02-RfV" id="fe3-wk-OjP"/>
                         <outlet property="showOrHideCameraViewButton" destination="fzQ-Hq-vKr" id="ghd-YK-MhQ"/>
                     </connections>
                 </viewController>

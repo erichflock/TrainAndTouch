@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NFU-UO-I5e">
-    <device id="ipad10_5" orientation="landscape">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NFU-UO-I5e">
+    <device id="ipad10_5" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DKc-mE-fMx">
-                                <rect key="frame" x="0.0" y="20" width="1112" height="764"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="784"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -47,23 +45,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5A9-Cf-1ug">
-                                <rect key="frame" x="0.0" y="20" width="1112" height="764"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="784"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Train &amp; Touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFx-NW-diP">
-                                        <rect key="frame" x="977" y="713" width="105" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFx-NW-diP">
+                                        <rect key="frame" x="12" y="-16" width="900" height="700"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="700" id="RYC-6n-1f1"/>
+                                            <constraint firstAttribute="width" constant="900" id="xyo-br-RgW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="36"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzQ-Hq-vKr">
-                                        <rect key="frame" x="925" y="50" width="137" height="30"/>
-                                        <state key="normal" title="Show Face Tracking"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzQ-Hq-vKr">
+                                        <rect key="frame" x="1032" y="30" width="50" height="50"/>
+                                        <state key="normal" image="tracking"/>
                                         <connections>
                                             <action selector="showOrHideCameraView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w4g-R3-2zb"/>
                                         </connections>
                                     </button>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BVa-XG-t0G">
-                                        <rect key="frame" x="212" y="94" width="700" height="600"/>
+                                        <rect key="frame" x="212" y="114" width="700" height="600"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="700" id="6k0-6N-M1Y"/>
@@ -75,7 +77,7 @@
                                         </wkWebViewConfiguration>
                                     </wkWebView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhd-ME-FQr">
-                                        <rect key="frame" x="16" y="534" width="300" height="200"/>
+                                        <rect key="frame" x="16" y="554" width="300" height="200"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="8O3-Sh-tbI"/>
@@ -85,13 +87,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="YFx-NW-diP" secondAttribute="bottom" constant="30" id="3fA-8f-Cgb"/>
-                                    <constraint firstAttribute="trailing" secondItem="fzQ-Hq-vKr" secondAttribute="trailing" constant="50" id="BjG-99-hm1"/>
+                                    <constraint firstAttribute="bottom" secondItem="YFx-NW-diP" secondAttribute="bottom" constant="100" id="3fA-8f-Cgb"/>
+                                    <constraint firstAttribute="trailing" secondItem="fzQ-Hq-vKr" secondAttribute="trailing" constant="30" id="BjG-99-hm1"/>
                                     <constraint firstAttribute="trailing" secondItem="BVa-XG-t0G" secondAttribute="trailing" constant="200" id="F8O-02-RfV"/>
-                                    <constraint firstItem="fzQ-Hq-vKr" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="50" id="Hc5-eH-CWw"/>
+                                    <constraint firstItem="fzQ-Hq-vKr" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="30" id="Hc5-eH-CWw"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhd-ME-FQr" secondAttribute="bottom" constant="30" id="MC4-KY-IfT"/>
                                     <constraint firstAttribute="bottom" secondItem="BVa-XG-t0G" secondAttribute="bottom" constant="70" id="NL5-xQ-qfK"/>
-                                    <constraint firstAttribute="trailing" secondItem="YFx-NW-diP" secondAttribute="trailing" constant="30" id="iri-so-HEf"/>
+                                    <constraint firstAttribute="trailing" secondItem="YFx-NW-diP" secondAttribute="trailing" constant="200" id="iri-so-HEf"/>
                                     <constraint firstItem="Rhd-ME-FQr" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="16" id="zNn-QM-Uef"/>
                                 </constraints>
                             </view>
@@ -112,11 +114,10 @@
                         <outlet property="cameraViewWidthConstraint" destination="8O3-Sh-tbI" id="9md-VS-G0x"/>
                         <outlet property="contentLabel" destination="YFx-NW-diP" id="ClL-au-Wro"/>
                         <outlet property="contentLabelBottomConstraint" destination="3fA-8f-Cgb" id="1IN-LY-VlC"/>
-                        <outlet property="contentLabelTraillingConstant" destination="iri-so-HEf" id="V42-ej-Sph"/>
+                        <outlet property="contentLabelTraillingConstraint" destination="iri-so-HEf" id="V42-ej-Sph"/>
                         <outlet property="pdfWebView" destination="BVa-XG-t0G" id="x2s-tY-w6F"/>
                         <outlet property="pdfWebViewBottomConstraint" destination="NL5-xQ-qfK" id="S7g-UQ-67D"/>
                         <outlet property="pdfWebViewTrailingConstraint" destination="F8O-02-RfV" id="fe3-wk-OjP"/>
-                        <outlet property="showOrHideCameraViewButton" destination="fzQ-Hq-vKr" id="ghd-YK-MhQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -131,25 +132,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-XK-UnE">
-                                <rect key="frame" x="212" y="114" width="700" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsd-jr-chG">
+                                <rect key="frame" x="212" y="84" width="700" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="8g4-Bc-4pn"/>
-                                    <constraint firstAttribute="width" constant="700" id="w4O-xQ-347"/>
+                                    <constraint firstAttribute="width" constant="700" id="1mE-YF-ETz"/>
+                                    <constraint firstAttribute="height" constant="600" id="4M4-g7-GK7"/>
+                                </constraints>
+                                <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3f-W8-Hrt">
+                                <rect key="frame" x="16" y="554" width="300" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="9sd-Lu-cVY"/>
+                                    <constraint firstAttribute="height" constant="200" id="iAS-6P-XLF"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tL6-zH-1Qe">
+                                <rect key="frame" x="1032" y="30" width="50" height="50"/>
+                                <state key="normal" image="tracking"/>
+                                <connections>
+                                    <action selector="showCameraView:" destination="PLp-33-VUC" eventType="touchUpInside" id="STd-oT-O3F"/>
+                                    <action selector="showOrHideCameraView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vi4-wA-8YZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="trailing" secondItem="J8h-XK-UnE" secondAttribute="trailing" constant="200" id="7OO-8s-AmG"/>
-                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="bottom" secondItem="J8h-XK-UnE" secondAttribute="bottom" constant="70" id="dGX-bU-Osk"/>
+                            <constraint firstItem="tL6-zH-1Qe" firstAttribute="top" secondItem="pbM-Gp-rBE" secondAttribute="top" constant="30" id="2rr-9q-wwS"/>
+                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="bottom" secondItem="J3f-W8-Hrt" secondAttribute="bottom" constant="30" id="CeM-EK-HfK"/>
+                            <constraint firstItem="J3f-W8-Hrt" firstAttribute="leading" secondItem="pbM-Gp-rBE" secondAttribute="leading" constant="16" id="IsR-ia-p21"/>
+                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="trailing" secondItem="tL6-zH-1Qe" secondAttribute="trailing" constant="30" id="W3B-Y4-gq5"/>
+                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="trailing" secondItem="tsd-jr-chG" secondAttribute="trailing" constant="200" id="mNP-Gk-BCM"/>
+                            <constraint firstItem="pbM-Gp-rBE" firstAttribute="bottom" secondItem="tsd-jr-chG" secondAttribute="bottom" constant="100" id="oCB-cM-Gmw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pbM-Gp-rBE"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Video" image="video" id="CaW-QB-dDw"/>
                     <connections>
-                        <outlet property="videoView" destination="J8h-XK-UnE" id="gFq-gk-zEI"/>
+                        <outlet property="cameraView" destination="J3f-W8-Hrt" id="1ph-Ni-u1i"/>
+                        <outlet property="cameraViewHeightConstraint" destination="iAS-6P-XLF" id="d0I-sr-oiC"/>
+                        <outlet property="cameraViewWidthConstraint" destination="9sd-Lu-cVY" id="XFU-BH-dfc"/>
+                        <outlet property="videoWebView" destination="tsd-jr-chG" id="mDp-9U-9OO"/>
+                        <outlet property="videoWebViewBottomConstraint" destination="oCB-cM-Gmw" id="1cs-nc-g46"/>
+                        <outlet property="videoWebViewTraillingConstraint" destination="mNP-Gk-BCM" id="GfJ-q3-P6I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IL2-u7-Ujm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -169,6 +199,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="6Bb-mh-PgF"/>
                         <segue destination="PLp-33-VUC" kind="relationship" relationship="viewControllers" id="PS8-aM-HaC"/>
+                        <segue destination="ryD-mf-EgG" kind="relationship" relationship="viewControllers" id="5e9-FT-kof"/>
                         <segue destination="i9Y-d9-x5i" kind="relationship" relationship="viewControllers" id="scZ-8d-Te0"/>
                     </connections>
                 </tabBarController>
@@ -176,10 +207,71 @@
             </objects>
             <point key="canvasLocation" x="-295.14388489208636" y="-448.20143884892087"/>
         </scene>
+        <!--Touch-->
+        <scene sceneID="5QA-ya-fNy">
+            <objects>
+                <viewController id="ryD-mf-EgG" customClass="TouchViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bQr-Nl-Yy8">
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alQ-Bl-Mwr">
+                                <rect key="frame" x="212" y="84" width="700" height="600"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="D6n-oG-VRx"/>
+                                    <constraint firstAttribute="width" constant="700" id="VRG-OE-a20"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="885-Ug-kPj">
+                                <rect key="frame" x="1032" y="30" width="50" height="50"/>
+                                <state key="normal" image="tracking"/>
+                                <connections>
+                                    <action selector="showCameraView:" destination="ryD-mf-EgG" eventType="touchUpInside" id="iUt-Ar-wjx"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEH-ho-kDa">
+                                <rect key="frame" x="16" y="554" width="300" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="XTs-iA-ZCr"/>
+                                    <constraint firstAttribute="height" constant="200" id="gLJ-AR-PGO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="rNW-Ak-4vf" firstAttribute="bottom" secondItem="ZEH-ho-kDa" secondAttribute="bottom" constant="30" id="8nv-1a-hdR"/>
+                            <constraint firstItem="rNW-Ak-4vf" firstAttribute="bottom" secondItem="alQ-Bl-Mwr" secondAttribute="bottom" constant="100" id="ATX-jl-Na4"/>
+                            <constraint firstItem="rNW-Ak-4vf" firstAttribute="trailing" secondItem="alQ-Bl-Mwr" secondAttribute="trailing" constant="200" id="AtZ-HN-8gj"/>
+                            <constraint firstItem="rNW-Ak-4vf" firstAttribute="trailing" secondItem="885-Ug-kPj" secondAttribute="trailing" constant="30" id="meB-st-bBQ"/>
+                            <constraint firstItem="ZEH-ho-kDa" firstAttribute="leading" secondItem="bQr-Nl-Yy8" secondAttribute="leading" constant="16" id="pcM-9X-Zkf"/>
+                            <constraint firstItem="885-Ug-kPj" firstAttribute="top" secondItem="rNW-Ak-4vf" secondAttribute="top" constant="30" id="tsB-VK-1pO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rNW-Ak-4vf"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Touch" image="touch" selectedImage="touch" id="o5V-Ud-8Vu">
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="cameraView" destination="ZEH-ho-kDa" id="Mz0-Hg-MvX"/>
+                        <outlet property="cameraViewHeightConstraint" destination="gLJ-AR-PGO" id="xjn-Yc-2EK"/>
+                        <outlet property="cameraViewWidthConstraint" destination="XTs-iA-ZCr" id="8PM-hu-Y6n"/>
+                        <outlet property="touchAreaView" destination="alQ-Bl-Mwr" id="0YC-Km-IH2"/>
+                        <outlet property="touchAreaViewBottomConstraint" destination="ATX-jl-Na4" id="Fh2-64-RCc"/>
+                        <outlet property="touchAreaViewTraillingConstraint" destination="AtZ-HN-8gj" id="Nmy-xR-1Ap"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wAg-7Z-PZX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-484" y="321"/>
+        </scene>
     </scenes>
     <resources>
         <image name="book" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
+        <image name="touch" width="32" height="32"/>
+        <image name="tracking" width="50" height="50"/>
         <image name="video" width="30" height="30"/>
     </resources>
 </document>

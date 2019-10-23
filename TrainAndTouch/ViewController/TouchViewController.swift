@@ -1,8 +1,8 @@
 //
-//  VideoViewController.swift
+//  TouchViewController.swift
 //  TrainAndTouch
 //
-//  Created by Erich Flock on 25.06.19.
+//  Created by Erich Flock on 15.10.19.
 //  Copyright © 2019 flock. All rights reserved.
 //
 
@@ -12,14 +12,20 @@ import WebKit
 import Vision
 import AVFoundation
 
-class VideoViewController : UIViewController {
+class TouchViewController: UIViewController {
+
+    @IBOutlet var touchAreaView: UIView!
     
-    @IBOutlet var videoWebView: WKWebView!
-    @IBOutlet var videoWebViewTraillingConstraint: NSLayoutConstraint!
-    @IBOutlet var videoWebViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var touchAreaViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var touchAreaViewTraillingConstraint: NSLayoutConstraint!
     @IBOutlet var cameraView: UIView!
     @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var cameraViewHeightConstraint: NSLayoutConstraint!
+    
+    let borderLimitThreshold: CGFloat = 5.0
+    
+    var width: CGFloat = 0
+    var distance: CGFloat = 0
     
     var avSession: AVCaptureSession?
     let faceDetection = VNDetectFaceRectanglesRequest()
@@ -37,8 +43,6 @@ class VideoViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadVideo(videoID: "SgYeEor6Q6o")
-        
         initializeCameraSession()
     }
     
@@ -52,13 +56,15 @@ class VideoViewController : UIViewController {
         avSession = nil
     }
     
-    private func loadVideo(videoID: String) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        guard let youtubeURL = URL(string: "https://www.youtube.com/embed/\(videoID)") else { return }
+        self.touchAreaView.layer.borderWidth = 1
+        self.touchAreaView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
         
-        videoWebView.load( URLRequest(url: youtubeURL) )
+        startTouchGame( )
     }
-    
+
     func initializeCameraSession() {
         
         avSession = AVCaptureSession()
@@ -133,7 +139,7 @@ class VideoViewController : UIViewController {
                         
                         if let leftPupilLandmarkPoint = observation.landmarks?.leftPupil {
                             if let point = leftPupilLandmarkPoint.normalizedPoints.first {
-                                self.moveVideoWebView(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
+                                self.moveTouchAreaView(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
                             }
                         }
                     }
@@ -183,7 +189,7 @@ class VideoViewController : UIViewController {
         }
     }
     
-    func moveVideoWebView(x: CGFloat, y: CGFloat, boundingBox: CGRect) {
+    func moveTouchAreaView(x: CGFloat, y: CGFloat, boundingBox: CGRect) {
         
         let pointX = x + boundingBox.origin.x
         let pointY = y + boundingBox.origin.y
@@ -193,18 +199,18 @@ class VideoViewController : UIViewController {
         if userHasStoppedMovingHisHead {
             return
         } else {
-            updateContentLabelBottomConstraint(pointY, speed: 0.3)
-            updateContentLabekTraillingConstraint(pointX, speed: 0.4 )
+            updateTouchAreaViewBottomConstraint(pointY, speed: 0.3)
+            updateTouchAreaViewTraillingConstraint(pointX, speed: 0.4 )
         }
     }
     
-    private func updateContentLabelBottomConstraint(_ pointY: CGFloat, speed: CGFloat) {
-        videoWebViewBottomConstraint.constant = pointY * speed
+    private func updateTouchAreaViewBottomConstraint(_ pointY: CGFloat, speed: CGFloat) {
+        touchAreaViewBottomConstraint.constant = pointY * speed
         lastY = pointY
     }
     
-    private func updateContentLabekTraillingConstraint(_ pointX: CGFloat, speed: CGFloat) {
-        videoWebViewTraillingConstraint.constant = pointX * speed
+    private func updateTouchAreaViewTraillingConstraint(_ pointX: CGFloat, speed: CGFloat) {
+        touchAreaViewTraillingConstraint.constant = pointX * speed
         lastX = pointX
     }
     
@@ -240,6 +246,85 @@ class VideoViewController : UIViewController {
         return false
     }
     
+    func startTouchGame() {
+        
+        //Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(callback), userInfo: nil, repeats: true)
+        
+        addCircleOnTouchAreaView()
+
+    }
+    
+    @objc func callback() {
+        
+        addCircleOnTouchAreaView()
+        
+        print("Circle Added")
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        
+        print("Circle touched")
+        
+        //remove previous circle
+        touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
+        
+        addCircleOnTouchAreaView()
+    }
+
+    private func addCircleOnTouchAreaView() {
+        
+        let xStartPoint: CGFloat = 0
+        let yStartPoint: CGFloat = 0
+        
+        width = getRandomWidth()
+        
+        let randomX = getRandomPositon(startPoint: xStartPoint, constraint: self.touchAreaView.frame.width)
+        let randomY = getRandomPositon(startPoint: yStartPoint, constraint: self.touchAreaView.frame.height)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        
+        print("Width: \(width)")
+        print("Random X: \(randomX), Random Y: \(randomY)")
+        
+        let circleView = UIView(frame: CGRect(x: randomX, y: randomY, width: width, height: width))
+        
+        circleView.layer.cornerRadius = circleView.bounds.size.width / 2 // circle shape
+        circleView.backgroundColor = .red
+        
+        circleView.addGestureRecognizer(tap)
+        self.touchAreaView.addSubview(circleView)
+    }
+    
+    private func getRandomWidth() ->CGFloat {
+        return CGFloat.random(between: 44, and: 200)
+    }
+    
+    private func getRandomPositon(startPoint: CGFloat, constraint: CGFloat) ->CGFloat {
+        
+        var randomPosition = CGFloat.random(between: startPoint, and: constraint)
+        
+        let borderLimit = constraint
+        
+        while (randomPosition + width) > borderLimit {
+            randomPosition = borderLimit - width - borderLimitThreshold
+        }
+        
+        return randomPosition
+    }
+    
+    private func getNextDistance(lastX: CGFloat, lastY: CGFloat) -> CGFloat{
+        
+        let newX = getRandomPositon(startPoint: 0, constraint: touchAreaView.frame.width)
+        let newY = getRandomPositon(startPoint: 0, constraint: touchAreaView.frame.height)
+
+        let diffX = newX - lastX
+        let diffY = newY - lastY
+        
+        let distance = CGFloat(sqrtf(Float(diffX * diffX + diffY * diffY))) - width / 2
+        
+        return distance
+    }
+    
     @IBAction func showCameraView(_ sender: Any) {
         
         if cameraView.isHidden {
@@ -251,11 +336,44 @@ class VideoViewController : UIViewController {
     
 }
 
-extension VideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+public extension CGFloat {
+    
+    static var random: CGFloat { return CGFloat(arc4random()) / CGFloat(UInt32.max) }
+
+    static func random(between x: CGFloat, and y: CGFloat) -> CGFloat {
+        let (start, end) = x < y ? (x, y) : (y, x)
+        return start + CGFloat.random * (end - start)
+    }
+}
+
+public extension CGRect {
+    
+    var randomPoint: CGPoint {
+        var point = CGPoint()
+
+        point.x = CGFloat.random(between: origin.x, and: origin.x + width)
+        point.y = CGFloat.random(between: origin.y, and: origin.y + height)
+
+        return point
+    }
+}
+
+public enum DispatchLevel {
+    case main, userInteractive, userInitiated, utility, background
+    var dispatchQueue: DispatchQueue {
+        switch self {
+        case .main:                 return DispatchQueue.main
+        case .userInteractive:      return DispatchQueue.global(qos: .userInteractive)
+        case .userInitiated:        return DispatchQueue.global(qos: .userInitiated)
+        case .utility:              return DispatchQueue.global(qos: .utility)
+        case .background:           return DispatchQueue.global(qos: .background)
+        }
+    }
+}
+
+extension TouchViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection)    {
-        
-        //print("Frame captured at \(getTime())")
         
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let attachments = CMCopyDictionaryOfAttachments(allocator: kCFAllocatorDefault, target: sampleBuffer, attachmentMode: kCMAttachmentMode_ShouldPropagate)

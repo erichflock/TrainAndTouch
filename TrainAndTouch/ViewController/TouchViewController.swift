@@ -27,6 +27,7 @@ class TouchViewController: UIViewController {
     var width: CGFloat = 0
     var distance: CGFloat = 0
     
+    var faceTrackingHelper: FaceTrackingHelper?
     var avSession: AVCaptureSession?
     let faceDetection = VNDetectFaceRectanglesRequest()
     let faceLandmarks = VNDetectFaceLandmarksRequest()
@@ -43,207 +44,55 @@ class TouchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        initializeCameraSession()
+        avSession = AVCaptureSession()
+        
+        activateFaceTracking()
+        
+        startTouchGame( )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        deactivateFaceTracking()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupTouchAreaView()
+    }
+    
+    private func setupTouchAreaView() {
+        
+        self.touchAreaView.layer.borderWidth = 1
+        self.touchAreaView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+    }
+    
+    private func activateFaceTracking() {
+        
+        avSession = AVCaptureSession()
+        
+        faceTrackingHelper = FaceTrackingHelper()
+        
+        if let faceTrackingHelper = faceTrackingHelper {
+            
+            faceTrackingHelper.initializeCameraSession(avSession: avSession, AVDelegate: self, cameraView: cameraView, widthConstraint: cameraViewWidthConstraint.constant, heightConstraint: cameraViewHeightConstraint.constant, shapeLayer: shapeLayer)
+            
+            faceTrackingHelper.bottomConstraint = touchAreaViewBottomConstraint
+            faceTrackingHelper.traillingConstraint = touchAreaViewTraillingConstraint
+        }
+    }
+    
+    private func deactivateFaceTracking() {
         
         if let avSession = self.avSession {
             avSession.stopRunning()
         }
         
         avSession = nil
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        self.touchAreaView.layer.borderWidth = 1
-        self.touchAreaView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
-        
-        startTouchGame( )
-    }
-
-    func initializeCameraSession() {
-        
-        avSession = AVCaptureSession()
-        
-        if let avSession = avSession {
-        
-            // Get camera devices
-            let devices = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices
-            
-            // Select a capture device
-            do {
-                if let captureDevice = devices.first {
-                    let captureDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
-                    avSession.addInput(captureDeviceInput)
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-            
-            // Show output on a preview layer
-            let captureOutput = AVCaptureVideoDataOutput()
-            captureOutput.setSampleBufferDelegate(self, queue:
-                DispatchQueue(label: "videoQueue"))
-            avSession.addOutput(captureOutput)
-            
-            let layer = AVCaptureVideoPreviewLayer(session: avSession)
-            
-            let frameWidth = cameraViewWidthConstraint.constant
-            let frameHeight = cameraViewHeightConstraint.constant
-            
-            layer.frame = CGRect(x: 0, y: 0, width: frameWidth, height: frameHeight)
-            layer.connection?.videoOrientation = .landscapeRight
-            cameraView.layer.addSublayer(layer)
-            
-            shapeLayer.frame = cameraView.bounds
-            
-            //needs to filp coordinate system for Vision
-            shapeLayer.setAffineTransform(CGAffineTransform(scaleX: -1, y: -1))
-            
-            cameraView.layer.addSublayer(shapeLayer)
-            
-            avSession.startRunning()
-        }
-    }
-
-    func detectFace(on image: CIImage) {
-        
-        try? faceDetectionRequest.perform([faceDetection], on: image)
-        if let results = faceDetection.results as? [VNFaceObservation] {
-            if !results.isEmpty {
-                //print("Face Detected")
-                faceLandmarks.inputFaceObservations = results
-                detectLandmarks(on: image)
-                DispatchQueue.main.async {
-                    self.shapeLayer.sublayers?.removeAll()
-                }
-            }
-        }
-    }
-    
-    func detectLandmarks(on image: CIImage) {
-        
-        try? faceLandmarksDetectionRequest.perform([faceLandmarks], on: image)
-        if let landmarksResults = faceLandmarks.results as? [VNFaceObservation] {
-            for observation in landmarksResults {
-                DispatchQueue.main.async {
-                    
-                    if let boundingBox = self.faceLandmarks.inputFaceObservations?.first?.boundingBox {
-                        
-                        //As we are going to move the content in the whole screen, we have to scale the bounding box to the view size. Plus, we have to use its dimension to compute the exact position to move the content.
-                        let faceBoundingBox = boundingBox.scaled(to: self.view.bounds.size)
-                        
-                        if let leftPupilLandmarkPoint = observation.landmarks?.leftPupil {
-                            if let point = leftPupilLandmarkPoint.normalizedPoints.first {
-                                self.moveTouchAreaView(x: CGFloat(point.x), y: CGFloat(point.y), boundingBox: faceBoundingBox)
-                            }
-                        }
-                    }
-                    
-                    //Uncomment the following lines to draw the face contour
-                    if let boundingBox =    self.faceLandmarks.inputFaceObservations?.first?.boundingBox {
-
-                        let faceBoundingBox = boundingBox.scaled(to: self.cameraView.bounds.size)
-                        let faceContour = observation.landmarks?.allPoints
-                        self.convertPointsForFace(faceContour, faceBoundingBox)
-                    }
-                }
-            }
-        }
-    }
-    
-    func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect) {
-        if let points = landmark?.normalizedPoints{
-            
-            //Use faceLandmarkVertices to move the content
-            let faceLandmarkVertices = points.map { (point: (CGPoint)) -> Vertex in
-                let pointX = point.x * boundingBox.width + boundingBox.origin.x
-                let pointY = point.y * boundingBox.height + boundingBox.origin.y
-                
-                return Vertex(x: Double(pointX), y: Double(pointY))
-            }
-            
-            DispatchQueue.main.async {
-                self.draw(vertices: faceLandmarkVertices, boundingBox: boundingBox)
-            }
-        }
-    }
-    
-    func draw(vertices: [Vertex], boundingBox: CGRect) {
-        
-        let triangles = Delaunay().triangulate(vertices)
-        
-        for triangle in triangles {
-            let triangleLayer = CAShapeLayer()
-            
-            triangleLayer.path = triangle.toPath()
-            triangleLayer.strokeColor = UIColor.blue.cgColor
-            triangleLayer.lineWidth = 1.0
-            triangleLayer.fillColor = UIColor.clear.cgColor
-            triangleLayer.backgroundColor = UIColor.clear.cgColor
-            shapeLayer.addSublayer(triangleLayer)
-        }
-    }
-    
-    func moveTouchAreaView(x: CGFloat, y: CGFloat, boundingBox: CGRect) {
-        
-        let pointX = x + boundingBox.origin.x
-        let pointY = y + boundingBox.origin.y
-        
-        let userHasStoppedMovingHisHead = !hasMovedVertically(point: pointY) && !hasMovedHorizontally(point: pointX)
-        
-        if userHasStoppedMovingHisHead {
-            return
-        } else {
-            updateTouchAreaViewBottomConstraint(pointY, speed: 0.3)
-            updateTouchAreaViewTraillingConstraint(pointX, speed: 0.4 )
-        }
-    }
-    
-    private func updateTouchAreaViewBottomConstraint(_ pointY: CGFloat, speed: CGFloat) {
-        touchAreaViewBottomConstraint.constant = pointY * speed
-        lastY = pointY
-    }
-    
-    private func updateTouchAreaViewTraillingConstraint(_ pointX: CGFloat, speed: CGFloat) {
-        touchAreaViewTraillingConstraint.constant = pointX * speed
-        lastX = pointX
-    }
-    
-    //MARK: AUX Functions
-    
-    func hasMovedHorizontally(point: CGFloat) ->Bool {
-        
-        guard let lastX = lastX else {
-            return true
-        }
-        
-        let difference = point - lastX
-        
-        if difference > variationThreshold || difference < -variationThreshold {
-            return true
-        }
-        
-        return false
-    }
-    
-    func hasMovedVertically(point: CGFloat) ->Bool {
-        
-        guard let lastY = lastY else {
-            return true
-        }
-        
-        let difference = point - lastY
-        
-        if difference > variationThreshold || difference < -variationThreshold {
-            return true
-        }
-        
-        return false
+        faceTrackingHelper = nil
     }
     
     func startTouchGame() {
@@ -379,6 +228,13 @@ extension TouchViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let attachments = CMCopyDictionaryOfAttachments(allocator: kCFAllocatorDefault, target: sampleBuffer, attachmentMode: kCMAttachmentMode_ShouldPropagate)
         let ciImage = CIImage(cvImageBuffer: pixelBuffer!, options: attachments as! [CIImageOption : Any]?)
         let ciImageWithOrientation = ciImage.oriented(forExifOrientation: Int32(UIImage.Orientation.right.rawValue))
-        detectFace(on: ciImageWithOrientation)
+        
+        if let faceTrackingHelper = faceTrackingHelper {
+                
+            DispatchQueue.main.async {
+                
+                faceTrackingHelper.detectFace(on: ciImageWithOrientation, faceDetectionRequest: self.faceDetectionRequest, faceDetection: self.faceDetection, faceLandmarks: self.faceLandmarks, view: self.view, shapeLayer: self.shapeLayer, cameraView: self.cameraView)
+            }
+        }
     }
 }

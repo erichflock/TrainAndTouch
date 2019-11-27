@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75E2415D1DF27FC89D34F786 /* libPods-TrainAndTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9472BE50F619F8EAEEFD8 /* libPods-TrainAndTouch.a */; };
 		8C21E307236D6DAA00DEF571 /* FaceTrackingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21E306236D6DAA00DEF571 /* FaceTrackingHelper.swift */; };
 		8C9BDDF92355BCC3007F2C30 /* TouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BDDF82355BCC3007F2C30 /* TouchViewController.swift */; };
 		8CB4AB44229C553300A3E997 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4AB43229C553300A3E997 /* AppDelegate.swift */; };
@@ -16,11 +17,11 @@
 		8CB4AB4E229C553400A3E997 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB4AB4C229C553400A3E997 /* LaunchScreen.storyboard */; };
 		8CB91B0622C2981B0055ACDB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */; };
 		8CB91B0F22C2A6C90055ACDB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB91B0E22C2A6C90055ACDB /* WebKit.framework */; };
-		8CB91B1A22C2ACA80055ACDB /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 8CB91B1922C2ACA80055ACDB /* Files */; };
 		8CC9A91422A3B5DC005B98B0 /* Delaunay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46B9472BE50F619F8EAEEFD8 /* libPods-TrainAndTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrainAndTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C21E306236D6DAA00DEF571 /* FaceTrackingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTrackingHelper.swift; sourceTree = "<group>"; };
 		8C9BDDF82355BCC3007F2C30 /* TouchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchViewController.swift; sourceTree = "<group>"; };
 		8CB4AB40229C553300A3E997 /* TrainAndTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainAndTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,8 +33,9 @@
 		8CB4AB4F229C553400A3E997 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8CB91B0E22C2A6C90055ACDB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		8CB91B1922C2ACA80055ACDB /* Files */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Files; path = "../../Documents/bauhaus_universitaet/Cognitive Seminar/T5 Affordances – Application and Critique-20190411/Files"; sourceTree = "<group>"; };
 		8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delaunay.swift; sourceTree = "<group>"; };
+		AFFF13C9A1CA378BB439DFCB /* Pods-TrainAndTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainAndTouch.debug.xcconfig"; path = "Target Support Files/Pods-TrainAndTouch/Pods-TrainAndTouch.debug.xcconfig"; sourceTree = "<group>"; };
+		FE2A85A8096E8120A756482B /* Pods-TrainAndTouch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainAndTouch.release.xcconfig"; path = "Target Support Files/Pods-TrainAndTouch/Pods-TrainAndTouch.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,18 +44,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CB91B0F22C2A6C90055ACDB /* WebKit.framework in Frameworks */,
+				75E2415D1DF27FC89D34F786 /* libPods-TrainAndTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32CF0FCD2A1A445EB9DD72AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AFFF13C9A1CA378BB439DFCB /* Pods-TrainAndTouch.debug.xcconfig */,
+				FE2A85A8096E8120A756482B /* Pods-TrainAndTouch.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8CB4AB37229C553300A3E997 = {
 			isa = PBXGroup;
 			children = (
 				8CB4AB42229C553300A3E997 /* TrainAndTouch */,
 				8CB4AB41229C553300A3E997 /* Products */,
 				8CB91B0D22C2A6C80055ACDB /* Frameworks */,
+				32CF0FCD2A1A445EB9DD72AE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,7 +87,6 @@
 				8CB4AB47229C553300A3E997 /* Main.storyboard */,
 				8CB4AB4A229C553400A3E997 /* Assets.xcassets */,
 				8CB4AB4C229C553400A3E997 /* LaunchScreen.storyboard */,
-				8CB91B1922C2ACA80055ACDB /* Files */,
 				8CC9A91222A3B590005B98B0 /* Utils */,
 				8CB4AB4F229C553400A3E997 /* Info.plist */,
 			);
@@ -94,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB91B0E22C2A6C90055ACDB /* WebKit.framework */,
+				46B9472BE50F619F8EAEEFD8 /* libPods-TrainAndTouch.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,6 +128,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8CB4AB52229C553400A3E997 /* Build configuration list for PBXNativeTarget "TrainAndTouch" */;
 			buildPhases = (
+				AA17956CA9D0CEB92E8130C2 /* [CP] Check Pods Manifest.lock */,
 				8CB4AB3C229C553300A3E997 /* Sources */,
 				8CB4AB3D229C553300A3E997 /* Frameworks */,
 				8CB4AB3E229C553300A3E997 /* Resources */,
@@ -165,7 +180,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CB91B1A22C2ACA80055ACDB /* Files in Resources */,
 				8CB4AB4E229C553400A3E997 /* LaunchScreen.storyboard in Resources */,
 				8CB4AB4B229C553400A3E997 /* Assets.xcassets in Resources */,
 				8CB4AB49229C553300A3E997 /* Main.storyboard in Resources */,
@@ -173,6 +187,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AA17956CA9D0CEB92E8130C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TrainAndTouch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8CB4AB3C229C553300A3E997 /* Sources */ = {
@@ -328,6 +367,7 @@
 		};
 		8CB4AB53229C553400A3E997 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFFF13C9A1CA378BB439DFCB /* Pods-TrainAndTouch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -348,6 +388,7 @@
 		};
 		8CB4AB54229C553400A3E997 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE2A85A8096E8120A756482B /* Pods-TrainAndTouch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";

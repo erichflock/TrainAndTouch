@@ -224,7 +224,7 @@ open class Delaunay {
     }
 }
 
-public struct Vertex {
+public struct Vertex: Hashable {
     
     public init(x: Double, y: Double) {
         self.x = x
@@ -255,11 +255,11 @@ extension Array where Element:Equatable {
     }
 }
 
-extension Vertex: Hashable {
-    public var hashValue: Int {
-        return "\(x)\(y)".hashValue
-    }
-}
+//extension Vertex: Hashable {
+//    public var hashValue: Int {
+//        return "\(x)\(y)".hashValue
+//    }
+//}
 
 /// A simple struct representing 3 vertices
 public struct Triangle {

@@ -15,7 +15,6 @@
 		8CB4AB4B229C553400A3E997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB4AB4A229C553400A3E997 /* Assets.xcassets */; };
 		8CB4AB4E229C553400A3E997 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB4AB4C229C553400A3E997 /* LaunchScreen.storyboard */; };
 		8CB91B0622C2981B0055ACDB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */; };
-		8CB91B0822C298460055ACDB /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB91B0722C298460055ACDB /* VideoViewController.swift */; };
 		8CB91B0F22C2A6C90055ACDB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB91B0E22C2A6C90055ACDB /* WebKit.framework */; };
 		8CB91B1A22C2ACA80055ACDB /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 8CB91B1922C2ACA80055ACDB /* Files */; };
 		8CC9A91422A3B5DC005B98B0 /* Delaunay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */; };
@@ -32,7 +31,6 @@
 		8CB4AB4D229C553400A3E997 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CB4AB4F229C553400A3E997 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		8CB91B0722C298460055ACDB /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		8CB91B0E22C2A6C90055ACDB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8CB91B1922C2ACA80055ACDB /* Files */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Files; path = "../../Documents/bauhaus_universitaet/Cognitive Seminar/T5 Affordances – Application and Critique-20190411/Files"; sourceTree = "<group>"; };
 		8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delaunay.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 			children = (
 				8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */,
 				8CB4AB45229C553300A3E997 /* BookViewController.swift */,
-				8CB91B0722C298460055ACDB /* VideoViewController.swift */,
 				8C9BDDF82355BCC3007F2C30 /* TouchViewController.swift */,
 			);
 			path = ViewController;
@@ -186,7 +183,6 @@
 				8CB4AB46229C553300A3E997 /* BookViewController.swift in Sources */,
 				8C9BDDF92355BCC3007F2C30 /* TouchViewController.swift in Sources */,
 				8CB4AB44229C553300A3E997 /* AppDelegate.swift in Sources */,
-				8CB91B0822C298460055ACDB /* VideoViewController.swift in Sources */,
 				8C21E307236D6DAA00DEF571 /* FaceTrackingHelper.swift in Sources */,
 				8CB91B0622C2981B0055ACDB /* SettingsViewController.swift in Sources */,
 			);
@@ -335,8 +331,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE47ZVXRT6;
 				INFOPLIST_FILE = TrainAndTouch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -355,8 +351,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE47ZVXRT6;
 				INFOPLIST_FILE = TrainAndTouch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

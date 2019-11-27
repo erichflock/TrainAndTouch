@@ -19,6 +19,11 @@ class FaceTrackingHelper: UIViewController {
     
     var bottomConstraint: NSLayoutConstraint?
     var traillingConstraint: NSLayoutConstraint?
+    var maximumTraillingConstraintValue: CGFloat?
+    var maximumBottomConstraintValue: CGFloat?
+    var minimumBottomConstraintValue: CGFloat?
+    var minimumLeadingConstraintValue: CGFloat?
+    var speed: CGFloat?
     
     public class var sharedInstance: FaceTrackingHelper {
         
@@ -151,19 +156,71 @@ class FaceTrackingHelper: UIViewController {
         }
     }
     
+    private func hasReachedLeftBorder(constant: CGFloat) -> Bool {
+            
+        if let maximumTraillingConstraintValue = self.maximumTraillingConstraintValue {
+            
+            if constant > maximumTraillingConstraintValue {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func hasReachedRightBorder(constant: CGFloat) -> Bool {
+        
+        if let minimumLeadingConstraintValue = self.minimumLeadingConstraintValue {
+            
+            if constant < minimumLeadingConstraintValue {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func hasReachedTopBorder(constant: CGFloat) -> Bool {
+            
+        if let maximumBottomConstraintValue = self.maximumBottomConstraintValue {
+            
+            if constant > maximumBottomConstraintValue {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func hasReachedBottomBorder(constant: CGFloat) -> Bool {
+            
+        if let minimumBottomConstraintValue = self.minimumBottomConstraintValue {
+            
+            if constant < minimumBottomConstraintValue {
+                return true
+            }
+        }
+        return false
+    }
+    
     private func updateContentConstraint(_ point: CGFloat, speed: CGFloat, constraint: NSLayoutConstraint, movement: Movement) {
         
-        constraint.constant = point * speed
+        let constant = point * speed
         
         switch movement {
             
         case .Horizontal:
+            
+            if !hasReachedLeftBorder(constant: constant) && !hasReachedRightBorder(constant: constant) {
+                constraint.constant = constant
+            }
             
             lastHorizontalPosition = point
             
             break
             
         case .Vertical:
+            
+            if !hasReachedTopBorder(constant: constant) && !hasReachedBottomBorder(constant: constant){
+                constraint.constant = constant
+            }
             
             lastVerticalPosition = point
             
@@ -184,11 +241,11 @@ class FaceTrackingHelper: UIViewController {
         } else {
             
             if let traillingConstraint = traillingConstraint {
-                updateContentConstraint(pointX, speed: 0.25, constraint: traillingConstraint, movement: .Horizontal)
+                updateContentConstraint(pointX, speed: self.speed ?? 0.5, constraint: traillingConstraint, movement: .Horizontal)
             }
             
             if let bottomConstraint = bottomConstraint {
-                updateContentConstraint(pointY, speed: 0.2, constraint: bottomConstraint, movement: .Vertical)
+                updateContentConstraint(pointY, speed: self.speed ?? 0.5, constraint: bottomConstraint, movement: .Vertical)
             }
         }
     }

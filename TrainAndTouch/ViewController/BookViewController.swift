@@ -18,10 +18,16 @@ class BookViewController: UIViewController {
     @IBOutlet var cameraView: UIView!
     @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var cameraViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet var contentView: UIView!
+    @IBOutlet var contentViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var contentViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var contentViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var contetViewTraillingConstraint: NSLayoutConstraint!
+    @IBOutlet var contentViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var contentViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var contentLabel: UILabel!
-    @IBOutlet var contentLabelBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var contentLabelTraillingConstraint: NSLayoutConstraint!
+    @IBOutlet var contentLabelWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var contentLabelHeightConstraint: NSLayoutConstraint!
     
     var faceTrackingHelper: FaceTrackingHelper?
     var avSession: AVCaptureSession?
@@ -41,7 +47,10 @@ class BookViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.contentLabel.isHidden = false
-        self.contentLabel.text = "A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him."
+        self.contentLabel.text = "A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him.A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him."
+        
+        self.contentView.layer.borderWidth = 1
+        self.contentView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
         
         cameraView.isHidden = true
         
@@ -56,9 +65,13 @@ class BookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateWindowSize(size: .small)
+        updateContentLabelSize()
+        self.view.layoutIfNeeded()
     }
 
-    private func activateFaceTracking() {
+    private func activateFaceTracking(_ speed: CGFloat = 0.5) {
         
         avSession = AVCaptureSession()
         
@@ -67,9 +80,15 @@ class BookViewController: UIViewController {
         if let faceTrackingHelper = faceTrackingHelper {
             
             faceTrackingHelper.initializeCameraSession(avSession: avSession, AVDelegate: self, cameraView: cameraView, widthConstraint: cameraViewWidthConstraint.constant, heightConstraint: cameraViewHeightConstraint.constant, shapeLayer: shapeLayer)
-            
-            faceTrackingHelper.bottomConstraint = contentLabelBottomConstraint
-            faceTrackingHelper.traillingConstraint = contentLabelTraillingConstraint
+    
+            faceTrackingHelper.bottomConstraint = contentViewBottomConstraint
+            faceTrackingHelper.traillingConstraint = contetViewTraillingConstraint
+                
+            faceTrackingHelper.maximumTraillingConstraintValue = getMaximumTraillingConstraintValue()
+            faceTrackingHelper.maximumBottomConstraintValue = getMaximumBottomConstraintValue()
+            faceTrackingHelper.minimumBottomConstraintValue = 30.0
+            faceTrackingHelper.minimumLeadingConstraintValue = 30.0
+            faceTrackingHelper.speed = speed
         }
     }
     
@@ -82,6 +101,63 @@ class BookViewController: UIViewController {
         avSession = nil
         
         faceTrackingHelper = nil
+    }
+    
+    private func getMaximumTraillingConstraintValue() -> CGFloat {
+        
+        let viewWidth = self.view.frame.width
+        let contentViewWidth = self.contentView.frame.width
+        let maximumTraillingConstraintValue = viewWidth - contentViewWidth - self.contentViewLeadingConstraint.constant
+        
+        return maximumTraillingConstraintValue
+    }
+    
+    private func getMaximumBottomConstraintValue() -> CGFloat {
+        
+        let viewHeight = self.view.frame.height
+        let contentViewHeight = self.contentView.frame.height
+        let maximumBottomConstraint = viewHeight - contentViewHeight - self.contentViewTopConstraint.constant
+        
+        return maximumBottomConstraint
+    }
+    
+    
+    private func updateWindowSize(size: Size) {
+        
+        switch size {
+        case .small:
+            
+            let width: CGFloat = 600
+            let height: CGFloat = width * 0.75 // porportion of (self.view.frame.height / self.view.frame.width)
+            
+            self.contentViewWidthConstraint.constant = width
+            self.contentViewHeightConstraint.constant = height
+            
+            
+            deactivateFaceTracking()
+            activateFaceTracking(0.8)
+            
+            break
+            
+        case .large:
+            
+            let width: CGFloat = 850
+            let height: CGFloat = width * 0.75 // porportion of (self.view.frame.height / self.view.frame.width)
+            
+            self.contentViewWidthConstraint.constant = width
+            self.contentViewHeightConstraint.constant = height
+            
+            deactivateFaceTracking()
+            activateFaceTracking(0.5)
+            
+            break
+        }
+    }
+    
+    private func updateContentLabelSize() {
+        
+        self.contentLabelWidthConstraint.constant = self.contentViewWidthConstraint.constant * 0.90
+        self.contentViewHeightConstraint.constant = self.contentViewWidthConstraint.constant * 0.75
     }
     
     func getTime() ->NSDate {
@@ -136,4 +212,8 @@ extension CGRect {
     }
 }
 
+enum Size {
+    case small
+    case large
+}
 

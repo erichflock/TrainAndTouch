@@ -12,7 +12,7 @@ import WebKit
 import Vision
 import AVFoundation
 
-class TouchViewController: UIViewController {
+class TouchTaskViewController: UIViewController {
 
     @IBOutlet var touchAreaView: UIView!
     
@@ -220,7 +220,7 @@ public enum DispatchLevel {
     }
 }
 
-extension TouchViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension TouchTaskViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection)    {
         

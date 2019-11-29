@@ -11,7 +11,7 @@
         <!--Book-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="BookViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ReadingTaskViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,7 +57,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzQ-Hq-vKr">
-                                        <rect key="frame" x="1032" y="30" width="50" height="50"/>
+                                        <rect key="frame" x="982" y="30" width="100" height="100"/>
                                         <state key="normal" image="tracking"/>
                                         <connections>
                                             <action selector="showOrHideCameraView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w4g-R3-2zb"/>
@@ -139,7 +139,7 @@
         <!--Touch-->
         <scene sceneID="5QA-ya-fNy">
             <objects>
-                <viewController id="ryD-mf-EgG" customClass="TouchViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ryD-mf-EgG" customClass="TouchTaskViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bQr-Nl-Yy8">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -153,7 +153,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="885-Ug-kPj">
-                                <rect key="frame" x="1032" y="30" width="50" height="50"/>
+                                <rect key="frame" x="982" y="30" width="100" height="100"/>
                                 <state key="normal" image="tracking"/>
                                 <connections>
                                     <action selector="showCameraView:" destination="ryD-mf-EgG" eventType="touchUpInside" id="iUt-Ar-wjx"/>
@@ -221,6 +221,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qon-Eh-bm5">
                                                     <rect key="frame" x="1031" y="6" width="51" height="32"/>
+                                                    <connections>
+                                                        <action selector="readingTaskTrackingSwitchToggleAction:" destination="cT8-ys-Yav" eventType="valueChanged" id="q85-9u-VHN"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -260,6 +263,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="readingTaskWindowSizeLargeAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="yEq-Ln-yQW"/>
                                                         <outletCollection property="otherButtons" destination="cqE-KP-TV0" id="TeH-as-hZ3"/>
                                                     </connections>
                                                 </button>
@@ -279,6 +283,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="iconSquare" value="NO"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="readingTaskWindowSizeSmallAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="CIA-MY-YRl"/>
                                                         <outletCollection property="otherButtons" destination="mPV-My-Gjl" id="Zk1-ZM-bdx"/>
                                                     </connections>
                                                 </button>
@@ -323,6 +328,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="readingTaskThirdTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="aMY-B3-u9F"/>
                                                         <outletCollection property="otherButtons" destination="nnc-D8-LiI" id="7FN-mi-5QR"/>
                                                         <outletCollection property="otherButtons" destination="2Kc-j7-iMf" id="pdH-Df-Tif"/>
                                                     </connections>
@@ -341,6 +347,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="readingTaskSecondTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="lAP-7P-bdJ"/>
                                                         <outletCollection property="otherButtons" destination="tda-Qp-heK" id="FLO-gf-Hra"/>
                                                         <outletCollection property="otherButtons" destination="2Kc-j7-iMf" id="Lbd-Pv-SKX"/>
                                                     </connections>
@@ -359,6 +366,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="readingTaskFirstTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="oM4-GU-6la"/>
                                                         <outletCollection property="otherButtons" destination="tda-Qp-heK" id="Xol-PF-WEa"/>
                                                         <outletCollection property="otherButtons" destination="nnc-D8-LiI" id="fKY-CZ-B2U"/>
                                                     </connections>
@@ -400,6 +408,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c6s-c3-E7c">
                                                     <rect key="frame" x="1031" y="6" width="51" height="32"/>
+                                                    <connections>
+                                                        <action selector="touchTaskTrackingSwitchToggleAction:" destination="cT8-ys-Yav" eventType="valueChanged" id="e1b-Ws-0c4"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -441,6 +452,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="iconSquare" value="NO"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="touchTaskWindowSizeSmallAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="lPw-9e-wec"/>
                                                         <outletCollection property="otherButtons" destination="hWG-zv-aN2" id="npK-S2-ryi"/>
                                                     </connections>
                                                 </button>
@@ -458,6 +470,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="touchTaskWindowSizeLargeAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="kNH-Q9-Wbo"/>
                                                         <outletCollection property="otherButtons" destination="aOB-FC-ye6" id="9Bz-pr-2ds"/>
                                                     </connections>
                                                 </button>
@@ -485,10 +498,21 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="uf1-Wp-BMs"/>
+                    <connections>
+                        <outlet property="readingTaskFirstTextButton" destination="2Kc-j7-iMf" id="cHE-fH-Nia"/>
+                        <outlet property="readingTaskSecondTextButton" destination="nnc-D8-LiI" id="OkX-RB-mMF"/>
+                        <outlet property="readingTaskThirdTextButton" destination="tda-Qp-heK" id="CDL-67-QqC"/>
+                        <outlet property="readingTaskTrackingSwitch" destination="qon-Eh-bm5" id="IBV-Jq-GVq"/>
+                        <outlet property="readingTaskWindowSizeLargeButton" destination="mPV-My-Gjl" id="NJn-z8-U7X"/>
+                        <outlet property="readingTaskWindowSizeSmallButton" destination="cqE-KP-TV0" id="3fm-On-4yY"/>
+                        <outlet property="touchTaskTrackingSwitch" destination="c6s-c3-E7c" id="4eq-uJ-K72"/>
+                        <outlet property="touchTaskWindowSizeLarge" destination="hWG-zv-aN2" id="9dO-p5-y2h"/>
+                        <outlet property="touchTaskWindowSizeSmall" destination="aOB-FC-ye6" id="hKw-Wz-aEZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v6A-hN-CoB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320" y="309"/>
+            <point key="canvasLocation" x="319.96402877697841" y="308.6330935251799"/>
         </scene>
     </scenes>
     <resources>

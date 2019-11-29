@@ -13,7 +13,7 @@ import AVFoundation
 import Vision
 import WebKit
 
-class BookViewController: UIViewController {
+class ReadingTaskViewController: UIViewController {
     
     @IBOutlet var cameraView: UIView!
     @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
@@ -180,7 +180,7 @@ class BookViewController: UIViewController {
     
 }
 
-extension BookViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension ReadingTaskViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection)    {
         

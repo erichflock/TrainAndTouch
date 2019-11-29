@@ -9,24 +9,25 @@
 /* Begin PBXBuildFile section */
 		75E2415D1DF27FC89D34F786 /* libPods-TrainAndTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9472BE50F619F8EAEEFD8 /* libPods-TrainAndTouch.a */; };
 		8C21E307236D6DAA00DEF571 /* FaceTrackingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21E306236D6DAA00DEF571 /* FaceTrackingHelper.swift */; };
-		8C9BDDF92355BCC3007F2C30 /* TouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BDDF82355BCC3007F2C30 /* TouchViewController.swift */; };
+		8C9BDDF92355BCC3007F2C30 /* TouchTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BDDF82355BCC3007F2C30 /* TouchTaskViewController.swift */; };
 		8CB4AB44229C553300A3E997 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4AB43229C553300A3E997 /* AppDelegate.swift */; };
-		8CB4AB46229C553300A3E997 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4AB45229C553300A3E997 /* BookViewController.swift */; };
+		8CB4AB46229C553300A3E997 /* ReadingTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4AB45229C553300A3E997 /* ReadingTaskViewController.swift */; };
 		8CB4AB49229C553300A3E997 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB4AB47229C553300A3E997 /* Main.storyboard */; };
 		8CB4AB4B229C553400A3E997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB4AB4A229C553400A3E997 /* Assets.xcassets */; };
 		8CB4AB4E229C553400A3E997 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB4AB4C229C553400A3E997 /* LaunchScreen.storyboard */; };
 		8CB91B0622C2981B0055ACDB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */; };
 		8CB91B0F22C2A6C90055ACDB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB91B0E22C2A6C90055ACDB /* WebKit.framework */; };
 		8CC9A91422A3B5DC005B98B0 /* Delaunay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */; };
+		8CFF9A7E2390F9AE0023EEFA /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF9A7D2390F9AE0023EEFA /* NotificationNames.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		46B9472BE50F619F8EAEEFD8 /* libPods-TrainAndTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrainAndTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C21E306236D6DAA00DEF571 /* FaceTrackingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTrackingHelper.swift; sourceTree = "<group>"; };
-		8C9BDDF82355BCC3007F2C30 /* TouchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchViewController.swift; sourceTree = "<group>"; };
+		8C9BDDF82355BCC3007F2C30 /* TouchTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchTaskViewController.swift; sourceTree = "<group>"; };
 		8CB4AB40229C553300A3E997 /* TrainAndTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainAndTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB4AB43229C553300A3E997 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8CB4AB45229C553300A3E997 /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		8CB4AB45229C553300A3E997 /* ReadingTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTaskViewController.swift; sourceTree = "<group>"; };
 		8CB4AB48229C553300A3E997 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8CB4AB4A229C553400A3E997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CB4AB4D229C553400A3E997 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -34,6 +35,7 @@
 		8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8CB91B0E22C2A6C90055ACDB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delaunay.swift; sourceTree = "<group>"; };
+		8CFF9A7D2390F9AE0023EEFA /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		AFFF13C9A1CA378BB439DFCB /* Pods-TrainAndTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainAndTouch.debug.xcconfig"; path = "Target Support Files/Pods-TrainAndTouch/Pods-TrainAndTouch.debug.xcconfig"; sourceTree = "<group>"; };
 		FE2A85A8096E8120A756482B /* Pods-TrainAndTouch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainAndTouch.release.xcconfig"; path = "Target Support Files/Pods-TrainAndTouch/Pods-TrainAndTouch.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,7 +59,6 @@
 				AFFF13C9A1CA378BB439DFCB /* Pods-TrainAndTouch.debug.xcconfig */,
 				FE2A85A8096E8120A756482B /* Pods-TrainAndTouch.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -97,8 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				8CB91B0522C2981B0055ACDB /* SettingsViewController.swift */,
-				8CB4AB45229C553300A3E997 /* BookViewController.swift */,
-				8C9BDDF82355BCC3007F2C30 /* TouchViewController.swift */,
+				8CB4AB45229C553300A3E997 /* ReadingTaskViewController.swift */,
+				8C9BDDF82355BCC3007F2C30 /* TouchTaskViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -115,10 +116,19 @@
 		8CC9A91222A3B590005B98B0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8CFF9A7F2390F9F30023EEFA /* Extensions */,
 				8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */,
 				8C21E306236D6DAA00DEF571 /* FaceTrackingHelper.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		8CFF9A7F2390F9F30023EEFA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8CFF9A7D2390F9AE0023EEFA /* NotificationNames.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,9 +229,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CC9A91422A3B5DC005B98B0 /* Delaunay.swift in Sources */,
-				8CB4AB46229C553300A3E997 /* BookViewController.swift in Sources */,
-				8C9BDDF92355BCC3007F2C30 /* TouchViewController.swift in Sources */,
+				8CB4AB46229C553300A3E997 /* ReadingTaskViewController.swift in Sources */,
+				8C9BDDF92355BCC3007F2C30 /* TouchTaskViewController.swift in Sources */,
 				8CB4AB44229C553300A3E997 /* AppDelegate.swift in Sources */,
+				8CFF9A7E2390F9AE0023EEFA /* NotificationNames.swift in Sources */,
 				8C21E307236D6DAA00DEF571 /* FaceTrackingHelper.swift in Sources */,
 				8CB91B0622C2981B0055ACDB /* SettingsViewController.swift in Sources */,
 			);

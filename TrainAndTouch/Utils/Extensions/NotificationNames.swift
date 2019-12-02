@@ -31,7 +31,7 @@ extension Notification.Name {
     
     static let didEnableTrackingOnTouchTask = Notification.Name("didEnableTrackingOnTouchTask")
     
-    static let didDisabledTrackingOnTouchTask = Notification.Name("didDisableTrackingOnTouchTask")
+    static let didDisableTrackingOnTouchTask = Notification.Name("didDisableTrackingOnTouchTask")
     
     static let didChangeWindowSizeToSmallOnTouchTask = Notification.Name("didChangeWindowSizeToSmallOnTouchTask")
 

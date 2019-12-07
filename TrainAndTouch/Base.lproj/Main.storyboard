@@ -79,13 +79,34 @@
                                             <constraint firstAttribute="height" constant="150" id="VxH-Cc-ang"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glo-xj-PV9">
+                                        <rect key="frame" x="1058" y="20" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="dUz-zz-rbn"/>
+                                            <constraint firstAttribute="height" constant="48" id="gbe-2d-uvr"/>
+                                        </constraints>
+                                        <state key="normal" image="timer"/>
+                                        <connections>
+                                            <action selector="startOrStopTimerAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4mg-z6-Wfi"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOh-nt-VXe">
+                                        <rect key="frame" x="1062" y="74" width="44" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="glo-xj-PV9" secondAttribute="trailing" constant="6" id="Fnh-dq-doR"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhd-ME-FQr" secondAttribute="bottom" constant="30" id="MC4-KY-IfT"/>
                                     <constraint firstItem="qjC-NE-Plf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="30" id="VwC-qV-JsX"/>
+                                    <constraint firstAttribute="trailing" secondItem="vOh-nt-VXe" secondAttribute="trailing" constant="6" id="byC-rb-WI8"/>
                                     <constraint firstAttribute="trailing" secondItem="qjC-NE-Plf" secondAttribute="trailing" constant="20" symbolic="YES" id="hoK-gq-Br9"/>
                                     <constraint firstAttribute="bottom" secondItem="qjC-NE-Plf" secondAttribute="bottom" id="qqj-qi-iRb"/>
+                                    <constraint firstItem="glo-xj-PV9" firstAttribute="top" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="20" id="sKE-yn-4j1"/>
+                                    <constraint firstItem="vOh-nt-VXe" firstAttribute="top" secondItem="glo-xj-PV9" secondAttribute="bottom" constant="6" id="twH-Y1-tWU"/>
                                     <constraint firstItem="Rhd-ME-FQr" firstAttribute="leading" secondItem="5A9-Cf-1ug" secondAttribute="leading" constant="16" id="zNn-QM-Uef"/>
                                     <constraint firstItem="qjC-NE-Plf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5A9-Cf-1ug" secondAttribute="top" constant="30" id="zgt-kV-2Kn"/>
                                 </constraints>
@@ -114,6 +135,7 @@
                         <outlet property="contentViewWidthConstraint" destination="rme-CT-CA1" id="5Ub-qU-ifl"/>
                         <outlet property="contetViewTraillingConstraint" destination="hoK-gq-Br9" id="rxL-9F-cOE"/>
                         <outlet property="pageCountLabel" destination="8wB-Um-xaI" id="lyq-yy-tgv"/>
+                        <outlet property="timerLabel" destination="vOh-nt-VXe" id="3t8-Rt-c9h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -158,7 +180,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="885-Ug-kPj">
-                                <rect key="frame" x="982" y="30" width="100" height="100"/>
+                                <rect key="frame" x="1032" y="30" width="50" height="50"/>
                                 <state key="normal" image="tracking"/>
                                 <connections>
                                     <action selector="showCameraView:" destination="ryD-mf-EgG" eventType="touchUpInside" id="iUt-Ar-wjx"/>
@@ -584,6 +606,7 @@
     <resources>
         <image name="book" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
+        <image name="timer" width="100" height="100"/>
         <image name="touch" width="32" height="32"/>
         <image name="tracking" width="50" height="50"/>
     </resources>

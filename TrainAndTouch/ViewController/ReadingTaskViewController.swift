@@ -27,7 +27,7 @@ class ReadingTaskViewController: UIViewController {
     @IBOutlet var contentViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var pageCountLabel: UILabel!
-    
+    @IBOutlet var timerLabel: UILabel!
     
     var faceTrackingHelper: FaceTrackingHelper?
     var avSession: AVCaptureSession?
@@ -47,6 +47,11 @@ class ReadingTaskViewController: UIViewController {
     var textSplited: [String] = []
     
     var actualWindowSize: Size = .small
+    var actualText = ""
+    
+    var timer: Timer?
+    var startTime: Double = 0
+    var time: Double = 0
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,7 +75,8 @@ class ReadingTaskViewController: UIViewController {
         cameraView.isHidden = true
         
         setupContentView()
-        setupContentLabel()
+        actualText = getFirstText()
+        setupContentLabel(text: actualText)
     }
     
     override func receivedNotification(_ notification: Notification) {
@@ -88,7 +94,7 @@ class ReadingTaskViewController: UIViewController {
             
             centralizeContentView()
             self.view.layoutIfNeeded()
-            setupContentLabel()
+            setupContentLabel(text: actualText)
             
             break
             
@@ -96,7 +102,7 @@ class ReadingTaskViewController: UIViewController {
             
             updateWindowSize(size: .small)
             self.view.layoutIfNeeded()
-            setupContentLabel()
+            setupContentLabel(text: actualText)
             
             break
             
@@ -104,17 +110,32 @@ class ReadingTaskViewController: UIViewController {
             
             updateWindowSize(size: .large)
             self.view.layoutIfNeeded()
-            setupContentLabel()
+            setupContentLabel(text: actualText)
             
             break
             
         case .didChangeToFirstTextOnReadingTask:
+            
+            actualText = getFirstText()
+            self.view.layoutIfNeeded()
+            setupContentLabel(text: actualText)
+            
             break
             
         case .didChangeToSecondTextOnReadingTask:
+            
+            actualText = getSecondText()
+            self.view.layoutIfNeeded()
+            setupContentLabel(text: actualText)
+            
             break
             
         case .didChangeToThirdTextOnReadingTask:
+            
+            actualText = getThirdText()
+            self.view.layoutIfNeeded()
+            setupContentLabel(text: actualText)
+            
             break
             
         case .showHeadTrackingOnReadingTask:
@@ -160,9 +181,7 @@ class ReadingTaskViewController: UIViewController {
         self.contentView.layer.borderWidth = 1
     }
     
-    private func setupContentLabel() {
-        
-        let text = "A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him.A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him.A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him."
+    private func setupContentLabel(text: String) {
         
         let necessaryLabelHeight = heightForView(text: text, font: UIFont.systemFont(ofSize: 30), width: contentView.frame.width)
         
@@ -172,6 +191,8 @@ class ReadingTaskViewController: UIViewController {
         
         self.contentLabel.isHidden = false
         self.contentLabel.text = textSplited[0]
+        
+        actualTextPage = 0
         
         updatePageCountLabel()
     }
@@ -349,6 +370,53 @@ class ReadingTaskViewController: UIViewController {
         }
     }
     
+    private func getFirstText() -> String {
+        
+        return "TEXTO 1: A pomba e a formiga \n\nForçada pela sede, uma formiga desceu até um riacho; arrastada pela corrente ela se viu a ponto de morrer afogada. Uma pomba que se encontrava em um galho de uma árvore viu a urgência: pegou um raminho da árvore, aproximou-se da correnteza e alcançou a formiga que subiu no ramo e se salvou. A formiga, muito agradecida, assegurou à sua nova amiga que se acontecesse alguma situação ela devolveria o favor, ainda que sendo tão pequena. A pomba não conseguia imaginar como a formiga poderia ser útil a ela. Pouco tempo depois, um caçador de pássaros avistou a pomba e mirando-a com um rifle a ponto de matá-la, aguardava o momento certo. Vendo o perigo em que se encontrava a pomba, a formiga rapidamente entrou na bota do caçador e picou o seu tornozelo, fazendo-o soltar a sua arma. O rápido instante foi aproveitado pela pomba para levantar voo, e assim a formiga pôde devolver o favor à sua amiga.."
+    }
+    
+    private func getSecondText() -> String {
+        
+        return "TEXTO 2: A raposa e a cegonha \n\nUm dia a raposa convidou a cegonha para jantar. Querendo pregar uma peça na outra, serviu a sopa num prato raso. Claro que a raposa tomou toda a sua sopa sem o menor problema, mas a pobre cegonha com seu bico comprido mal pode tomar uma gota. O resultado foi que a cegonha voltou para casa morrendo de fome. A raposa fingiu que estava preocupada, perguntou se a sopa não estava ao gosto da cegonha, mas a cegonha não disse nada. Quando foi embora, agradeceu muito a gentileza da raposa e disse que fazia questão de retribuir o jantar no dia seguinte. Assim que chegou, a raposa se sentou lambendo os beiços de fome, curiosa para ver as delicias que a outra ia servir. O jantar veio para a mesa numa jarra alta, de gargalo estreito, onde a cegonha podia beber sem o menor problema. A raposa, aborrecidíssima só teve uma saída: lamber as gotinhas de sopa que escorriam pelo lado de fora da jarra. Ela aprendeu muito bem a lição, enquanto ia andando para casa faminta, pensava: “ Não posso reclamar da cegonha. Ela me tratou mal, mas fui grosseira com ela primeiro”."
+        
+    }
+    
+    private func getThirdText() -> String {
+        
+        return "TEXTO 3: A cigarra e a formiga \n\nTendo a cigarra cantado durante todo o verão, viu-se ao chegar o inverno sem nenhuma provisão. Foi a casa da formiga, sua vizinha, e então lhe disse: \n– Querida amiga podia emprestar-me um grão que seja, de arroz, de farinha ou de feijão? Estou morrendo de fome. \n– Faz tempo que não come? – perguntou-lhe a formiga, avara de profissão. \n– Faz. \n– E o que fez a senhora durante todo o verão? \n– Eu cantei – disse a cigarra. \n– Cantou, é? Pois agora, dança!"
+    }
+    
+    private func startTimer() {
+        
+        startTime = Date().timeIntervalSinceReferenceDate
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    private func stopTimer() {
+        
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    @objc private func updateTimer() {
+        
+        time = Date().timeIntervalSinceReferenceDate - startTime
+        
+        let minutes = UInt8(time / 60.0)
+        time -= (TimeInterval(minutes) * 60)
+        
+        let seconds = UInt8(time)
+        time -= TimeInterval(seconds)
+        
+        //let milliseconds = UInt8(time * 100)
+        
+        let strMinutes = String(format: "%02d", minutes)
+        let strSeconds = String(format: "%02d", seconds)
+        //let strMilliseconds = String(format: "%02d", milliseconds)
+        
+        timerLabel?.text = "\(strMinutes):\(strSeconds)"
+    }
+    
     @IBAction func goToNextPageAction(_ sender: Any) {
         print("goToNextPage")
         updateLabelText(pageNumber: actualTextPage + 1)
@@ -358,6 +426,18 @@ class ReadingTaskViewController: UIViewController {
         
         print("goToPreviousPage")
         updateLabelText(pageNumber: actualTextPage - 1)
+    }
+    
+    @IBAction func startOrStopTimerAction(_ sender: Any) {
+        
+        if self.timer == nil {
+            
+            startTimer()
+            
+        } else {
+            
+            stopTimer()
+        }
     }
     
 }

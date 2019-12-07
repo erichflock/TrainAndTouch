@@ -312,7 +312,7 @@ class ReadingTaskViewController: UIViewController {
         case .small:
             
             let width: CGFloat = 600
-            let height: CGFloat = width * 0.75 // porportion of (self.view.frame.height / self.view.frame.width)
+            let height: CGFloat = 450 // porportion of (self.view.frame.height / self.view.frame.width)
             
             self.contentViewWidthConstraint.constant = width
             self.contentViewHeightConstraint.constant = height
@@ -332,7 +332,7 @@ class ReadingTaskViewController: UIViewController {
         case .large:
             
             let width: CGFloat = 850
-            let height: CGFloat = width * 0.75 // porportion of (self.view.frame.height / self.view.frame.width)
+            let height: CGFloat = 637.5 // porportion of (self.view.frame.height / self.view.frame.width)
             
             self.contentViewWidthConstraint.constant = width
             self.contentViewHeightConstraint.constant = height

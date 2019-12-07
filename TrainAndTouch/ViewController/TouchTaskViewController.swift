@@ -17,7 +17,11 @@ class TouchTaskViewController: UIViewController {
     @IBOutlet var touchAreaView: UIView!
     
     @IBOutlet var touchAreaViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var touchAreaViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var touchAreaViewTraillingConstraint: NSLayoutConstraint!
+    @IBOutlet var touchAreaViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var touchAreaViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var touchAreaViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var cameraView: UIView!
     @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var cameraViewHeightConstraint: NSLayoutConstraint!
@@ -41,26 +45,83 @@ class TouchTaskViewController: UIViewController {
     let variationThreshold: CGFloat = 20
     var applyVariationThreshold = true
     
+    var actualWindowSize: Size = .small
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        avSession = AVCaptureSession()
-        
-        activateFaceTracking()
-        
-        startTouchGame( )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        deactivateFaceTracking()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cameraView.isHidden = true
+        
         setupTouchAreaView()
+        
+        deregisterForNotification()
+        
+        registerForNotification(name: .hideHeadTrackingOnTouchTask)
+        registerForNotification(name: .showHeadTrackingOnTouchTask)
+        registerForNotification(name: .didEnableTrackingOnTouchTask)
+        registerForNotification(name: .didDisableTrackingOnTouchTask)
+        registerForNotification(name: .didChangeWindowSizeToLargeOnTouchTask)
+        registerForNotification(name: .didChangeWindowSizeToSmallOnTouchTask)
+    }
+    
+    override func receivedNotification(_ notification: Notification) {
+        
+        switch notification.name {
+        case .hideHeadTrackingOnTouchTask:
+            
+            cameraView.isHidden = true
+            
+            break
+            
+        case .showHeadTrackingOnTouchTask:
+            
+            cameraView.isHidden = false
+            
+            break
+            
+        case .didEnableTrackingOnTouchTask:
+            
+            activateFaceTracking()
+            
+            break
+            
+        case .didDisableTrackingOnTouchTask:
+            
+            centralizeContentView()
+            self.view.layoutIfNeeded()
+            deactivateFaceTracking()
+            
+            break
+            
+        case .didChangeWindowSizeToLargeOnTouchTask:
+            
+            updateWindowSize(size: .large)
+            self.view.layoutIfNeeded()
+            startTouchGame()
+            
+            break
+            
+        case .didChangeWindowSizeToSmallOnTouchTask:
+            
+            updateWindowSize(size: .small)
+            self.view.layoutIfNeeded()
+            startTouchGame()
+            
+            break
+        
+        default:
+            break
+        }
+        
+        self.view.layoutIfNeeded()
     }
     
     private func setupTouchAreaView() {
@@ -81,6 +142,23 @@ class TouchTaskViewController: UIViewController {
             
             faceTrackingHelper.bottomConstraint = touchAreaViewBottomConstraint
             faceTrackingHelper.traillingConstraint = touchAreaViewTraillingConstraint
+            
+            faceTrackingHelper.maximumTraillingConstraintValue = getMaximumTraillingConstraintValue()
+            faceTrackingHelper.maximumBottomConstraintValue = getMaximumBottomConstraintValue()
+            faceTrackingHelper.minimumBottomConstraintValue = 30.0
+            faceTrackingHelper.minimumLeadingConstraintValue = 30.0
+            
+            switch actualWindowSize {
+            case .small:
+                
+                faceTrackingHelper.speed = 0.8
+                
+                break
+                
+            case .large:
+                
+                faceTrackingHelper.speed = 0.5
+            }
         }
     }
     
@@ -95,32 +173,33 @@ class TouchTaskViewController: UIViewController {
         faceTrackingHelper = nil
     }
     
+    private func getMaximumTraillingConstraintValue() -> CGFloat {
+        
+        let viewWidth = self.view.frame.width
+        let contentViewWidth = self.touchAreaView.frame.width
+        let maximumTraillingConstraintValue = viewWidth - contentViewWidth - self.touchAreaViewLeadingConstraint.constant
+        
+        return maximumTraillingConstraintValue
+    }
+    
+    private func getMaximumBottomConstraintValue() -> CGFloat {
+        
+        let viewHeight = self.view.frame.height
+        let contentViewHeight = self.touchAreaView.frame.height
+        let maximumBottomConstraint = viewHeight - contentViewHeight - self.touchAreaViewTopConstraint.constant
+        
+        return maximumBottomConstraint
+    }
+    
     func startTouchGame() {
         
-        //Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(callback), userInfo: nil, repeats: true)
-        
         addCircleOnTouchAreaView()
+    }
 
-    }
-    
-    @objc func callback() {
-        
-        addCircleOnTouchAreaView()
-        
-        print("Circle Added")
-    }
-    
-    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        
-        print("Circle touched")
+    @objc func addCircleOnTouchAreaView(_ sender: UITapGestureRecognizer? = nil) {
         
         //remove previous circle
         touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
-        
-        addCircleOnTouchAreaView()
-    }
-
-    private func addCircleOnTouchAreaView() {
         
         let xStartPoint: CGFloat = 0
         let yStartPoint: CGFloat = 0
@@ -130,7 +209,7 @@ class TouchTaskViewController: UIViewController {
         let randomX = getRandomPositon(startPoint: xStartPoint, constraint: self.touchAreaView.frame.width)
         let randomY = getRandomPositon(startPoint: yStartPoint, constraint: self.touchAreaView.frame.height)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.addCircleOnTouchAreaView(_:)))
         
         print("Width: \(width)")
         print("Random X: \(randomX), Random Y: \(randomY)")
@@ -174,15 +253,73 @@ class TouchTaskViewController: UIViewController {
         return distance
     }
     
-    @IBAction func showCameraView(_ sender: Any) {
+    private func updateWindowSize(size: Size) {
         
-        if cameraView.isHidden {
-            cameraView.isHidden = false
-        } else {
-            cameraView.isHidden = true
+        switch size {
+        case .small:
+            
+            let width: CGFloat = 600
+            let height: CGFloat = 450 // porportion of (self.view.frame.height / self.view.frame.width)
+            
+            self.touchAreaViewWidthConstraint.constant = width
+            self.touchAreaViewHeightConstraint.constant = height
+            
+            actualWindowSize = .small
+            
+            self.view.layoutIfNeeded()
+            
+            if faceTrackingHelper != nil {
+                restartFaceTracking()
+            } else {
+                centralizeContentView()
+            }
+            
+            break
+            
+        case .large:
+            
+            let width: CGFloat = 850
+            let height: CGFloat = 637.5 // porportion of (self.view.frame.height / self.view.frame.width)
+            
+            self.touchAreaViewWidthConstraint.constant = width
+            self.touchAreaViewHeightConstraint.constant = height
+            
+            actualWindowSize = .large
+            
+            self.view.layoutIfNeeded()
+            
+            if faceTrackingHelper != nil {
+                restartFaceTracking()
+            } else {
+                centralizeContentView()
+            }
+            
+            break
         }
     }
     
+    private func restartFaceTracking() {
+        
+        deactivateFaceTracking()
+        activateFaceTracking()
+    }
+    
+    private func centralizeContentView() {
+        
+        switch actualWindowSize {
+        case .small:
+            
+            touchAreaViewBottomConstraint.constant = 150
+            touchAreaViewTraillingConstraint.constant = 210
+            
+            break
+            
+        case .large:
+            
+            touchAreaViewBottomConstraint.constant = 75
+            touchAreaViewTraillingConstraint.constant = 125
+        }
+    }
 }
 
 public extension CGFloat {

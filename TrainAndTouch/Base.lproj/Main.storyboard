@@ -172,20 +172,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alQ-Bl-Mwr">
-                                <rect key="frame" x="12" y="-16" width="900" height="700"/>
+                                <rect key="frame" x="212" y="234" width="700" height="450"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="700" id="D6n-oG-VRx"/>
-                                    <constraint firstAttribute="width" constant="900" id="VRG-OE-a20"/>
+                                    <constraint firstAttribute="height" constant="450" id="D6n-oG-VRx"/>
+                                    <constraint firstAttribute="width" constant="700" id="VRG-OE-a20"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="885-Ug-kPj">
-                                <rect key="frame" x="1032" y="30" width="50" height="50"/>
-                                <state key="normal" image="tracking"/>
-                                <connections>
-                                    <action selector="showCameraView:" destination="ryD-mf-EgG" eventType="touchUpInside" id="iUt-Ar-wjx"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEH-ho-kDa">
                                 <rect key="frame" x="16" y="554" width="300" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -200,9 +193,9 @@
                             <constraint firstItem="rNW-Ak-4vf" firstAttribute="bottom" secondItem="ZEH-ho-kDa" secondAttribute="bottom" constant="30" id="8nv-1a-hdR"/>
                             <constraint firstItem="rNW-Ak-4vf" firstAttribute="bottom" secondItem="alQ-Bl-Mwr" secondAttribute="bottom" constant="100" id="ATX-jl-Na4"/>
                             <constraint firstItem="rNW-Ak-4vf" firstAttribute="trailing" secondItem="alQ-Bl-Mwr" secondAttribute="trailing" constant="200" id="AtZ-HN-8gj"/>
-                            <constraint firstItem="rNW-Ak-4vf" firstAttribute="trailing" secondItem="885-Ug-kPj" secondAttribute="trailing" constant="30" id="meB-st-bBQ"/>
+                            <constraint firstItem="alQ-Bl-Mwr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bQr-Nl-Yy8" secondAttribute="top" constant="30" id="Ha7-2c-5n1"/>
+                            <constraint firstItem="alQ-Bl-Mwr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rNW-Ak-4vf" secondAttribute="leading" constant="30" id="orY-dj-9JR"/>
                             <constraint firstItem="ZEH-ho-kDa" firstAttribute="leading" secondItem="bQr-Nl-Yy8" secondAttribute="leading" constant="16" id="pcM-9X-Zkf"/>
-                            <constraint firstItem="885-Ug-kPj" firstAttribute="top" secondItem="rNW-Ak-4vf" secondAttribute="top" constant="30" id="tsB-VK-1pO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rNW-Ak-4vf"/>
                     </view>
@@ -215,7 +208,11 @@
                         <outlet property="cameraViewWidthConstraint" destination="XTs-iA-ZCr" id="8PM-hu-Y6n"/>
                         <outlet property="touchAreaView" destination="alQ-Bl-Mwr" id="0YC-Km-IH2"/>
                         <outlet property="touchAreaViewBottomConstraint" destination="ATX-jl-Na4" id="Fh2-64-RCc"/>
+                        <outlet property="touchAreaViewHeightConstraint" destination="D6n-oG-VRx" id="ZZ8-Gh-xcL"/>
+                        <outlet property="touchAreaViewLeadingConstraint" destination="orY-dj-9JR" id="KMP-w2-vks"/>
+                        <outlet property="touchAreaViewTopConstraint" destination="Ha7-2c-5n1" id="kYd-Nh-Gas"/>
                         <outlet property="touchAreaViewTraillingConstraint" destination="AtZ-HN-8gj" id="Nmy-xR-1Ap"/>
+                        <outlet property="touchAreaViewWidthConstraint" destination="VRG-OE-a20" id="Lr3-Dn-dH3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAg-7Z-PZX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -608,6 +605,5 @@
         <image name="settings" width="30" height="30"/>
         <image name="timer" width="100" height="100"/>
         <image name="touch" width="32" height="32"/>
-        <image name="tracking" width="50" height="50"/>
     </resources>
 </document>

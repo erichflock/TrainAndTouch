@@ -25,7 +25,10 @@ extension Notification.Name {
     static let didChangeToSecondTextOnReadingTask = Notification.Name("didChangeToSecondTextOnReadingTask")
 
     static let didChangeToThirdTextOnReadingTask = Notification.Name("didChangeToThirdTextOnReadingTask")
-
+    
+    static let showHeadTrackingOnReadingTask = Notification.Name("showHeadTrackingOnReadingTask")
+    
+    static let hideHeadTrackingOnReadingTask = Notification.Name("hideHeadTrackingOnReadingTask")
     
     //MARK: Notifications used to trigger actions on TouchViewController
     
@@ -36,4 +39,8 @@ extension Notification.Name {
     static let didChangeWindowSizeToSmallOnTouchTask = Notification.Name("didChangeWindowSizeToSmallOnTouchTask")
 
     static let didChangeWindowSizeToLargeOnTouchTask = Notification.Name("didChangeWindowSizeToLargeOnTouchTask")
+    
+    static let showHeadTrackingOnTouchTask = Notification.Name("showHeadTrackingOnTouchTask")
+    
+    static let hideHeadTrackingOnTouchTask = Notification.Name("hideHeadTrackingOnTouchTask")
 }

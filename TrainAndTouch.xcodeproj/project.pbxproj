@@ -19,6 +19,8 @@
 		8CB91B0F22C2A6C90055ACDB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB91B0E22C2A6C90055ACDB /* WebKit.framework */; };
 		8CC9A91422A3B5DC005B98B0 /* Delaunay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */; };
 		8CFF9A7E2390F9AE0023EEFA /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF9A7D2390F9AE0023EEFA /* NotificationNames.swift */; };
+		8CFF9A812398FD520023EEFA /* UIViewController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF9A802398FD520023EEFA /* UIViewController+Notification.swift */; };
+		8CFF9A83239A5FB50023EEFA /* String+Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF9A82239A5FB50023EEFA /* String+Split.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		8CB91B0E22C2A6C90055ACDB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8CC9A91322A3B5DC005B98B0 /* Delaunay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delaunay.swift; sourceTree = "<group>"; };
 		8CFF9A7D2390F9AE0023EEFA /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		8CFF9A802398FD520023EEFA /* UIViewController+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Notification.swift"; sourceTree = "<group>"; };
+		8CFF9A82239A5FB50023EEFA /* String+Split.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Split.swift"; sourceTree = "<group>"; };
 		AFFF13C9A1CA378BB439DFCB /* Pods-TrainAndTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainAndTouch.debug.xcconfig"; path = "Target Support Files/Pods-TrainAndTouch/Pods-TrainAndTouch.debug.xcconfig"; sourceTree = "<group>"; };
 		FE2A85A8096E8120A756482B /* Pods-TrainAndTouch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainAndTouch.release.xcconfig"; path = "Target Support Files/Pods-TrainAndTouch/Pods-TrainAndTouch.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				8CFF9A7D2390F9AE0023EEFA /* NotificationNames.swift */,
+				8CFF9A802398FD520023EEFA /* UIViewController+Notification.swift */,
+				8CFF9A82239A5FB50023EEFA /* String+Split.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -233,7 +239,9 @@
 				8C9BDDF92355BCC3007F2C30 /* TouchTaskViewController.swift in Sources */,
 				8CB4AB44229C553300A3E997 /* AppDelegate.swift in Sources */,
 				8CFF9A7E2390F9AE0023EEFA /* NotificationNames.swift in Sources */,
+				8CFF9A812398FD520023EEFA /* UIViewController+Notification.swift in Sources */,
 				8C21E307236D6DAA00DEF571 /* FaceTrackingHelper.swift in Sources */,
+				8CFF9A83239A5FB50023EEFA /* String+Split.swift in Sources */,
 				8CB91B0622C2981B0055ACDB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

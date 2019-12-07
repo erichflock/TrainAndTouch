@@ -19,11 +19,28 @@ class SettingsViewController : UITableViewController {
     @IBOutlet var readingTaskFirstTextButton: UIButton!
     @IBOutlet var readingTaskSecondTextButton: UIButton!
     @IBOutlet var readingTaskThirdTextButton: UIButton!
+    @IBOutlet var readingTaskShowHeadTrackingSwitch: UISwitch!
     
     //MARK: Touch Task UI Elements
     @IBOutlet var touchTaskTrackingSwitch: UISwitch!
-    @IBOutlet var touchTaskWindowSizeSmall: UIButton!
-    @IBOutlet var touchTaskWindowSizeLarge: UIButton!
+    @IBOutlet var touchTaskWindowSizeSmallButton: UIButton!
+    @IBOutlet var touchTaskWindowSizeLargeButton: UIButton!
+    @IBOutlet var touchTaskShowHeadTrackingSwitch: UISwitch!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupView()
+    }
+    
+    private func setupView() {
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        
+        self.readingTaskWindowSizeSmallButton.isSelected = true
+        self.readingTaskFirstTextButton.isSelected = true
+        self.touchTaskWindowSizeSmallButton.isSelected = true
+    }
     
     //MARK: Reading Task Actions
     
@@ -31,7 +48,7 @@ class SettingsViewController : UITableViewController {
         
         if readingTaskTrackingSwitch.isOn {
             
-            NotificationCenter.default.post(Notification(name: .didEnableTrackingOnTouchTask))
+            NotificationCenter.default.post(Notification(name: .didEnableTrackingOnReadingTask))
             print("Enable Tracking on Reading Task")
             
         } else {
@@ -71,6 +88,22 @@ class SettingsViewController : UITableViewController {
         print("Change to Third Text on Reading Task")
     }
     
+    @IBAction func readingTaskShowHeadTrackingSwitchToggleAction(_ sender: Any) {
+        
+        if readingTaskShowHeadTrackingSwitch.isOn {
+            
+            let notification = Notification(name: .showHeadTrackingOnReadingTask, userInfo: nil)
+            NotificationQueue.default.enqueue(notification, postingStyle: .whenIdle, coalesceMask: .onName, forModes: nil)
+            
+            //NotificationCenter.default.post(Notification(name: .showHeadTrackingOnReadingTask))
+        } else {
+            
+            let notification = Notification(name: .hideHeadTrackingOnReadingTask, userInfo: nil)
+            NotificationQueue.default.enqueue(notification, postingStyle: .whenIdle, coalesceMask: .onName, forModes: nil)
+            //NotificationCenter.default.post(Notification(name: .hideHeadTrackingOnReadingTask))
+        }
+    }
+    
     //MARK: Touch Task Actions
     
     @IBAction func touchTaskTrackingSwitchToggleAction(_ sender: Any) {
@@ -98,4 +131,13 @@ class SettingsViewController : UITableViewController {
         print("Change Window Size to Small on Touch Task")
     }
     
+    @IBAction func touchTaskShowHeadTrackingSwitchToggleAction(_ sender: Any) {
+        
+        if touchTaskShowHeadTrackingSwitch.isOn {
+            
+            NotificationCenter.default.post(Notification(name: .showHeadTrackingOnTouchTask))
+        } else {
+            NotificationCenter.default.post(Notification(name: .hideHeadTrackingOnTouchTask))
+        }
+    }
 }

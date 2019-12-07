@@ -26,8 +26,8 @@ class ReadingTaskViewController: UIViewController {
     @IBOutlet var contentViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var contentViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var contentLabel: UILabel!
-    @IBOutlet var contentLabelWidthConstraint: NSLayoutConstraint!
-    @IBOutlet var contentLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var pageCountLabel: UILabel!
+    
     
     var faceTrackingHelper: FaceTrackingHelper?
     var avSession: AVCaptureSession?
@@ -43,35 +43,182 @@ class ReadingTaskViewController: UIViewController {
     let variationThreshold: CGFloat = 20
     var applyVariationThreshold = true
     
+    var actualTextPage = 0
+    var textSplited: [String] = []
+    
+    var actualWindowSize: Size = .small
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.contentLabel.isHidden = false
-        self.contentLabel.text = "A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him.A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him."
-        
-        self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
-        
-        cameraView.isHidden = true
-        
-        activateFaceTracking()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        deactivateFaceTracking()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateWindowSize(size: .small)
-        updateContentLabelSize()
+        deregisterForNotification()
+        
+        registerForNotification(name: .didEnableTrackingOnReadingTask)
+        registerForNotification(name: .didDisableTrackingOnReadingTask)
+        registerForNotification(name: .didChangeWindowSizeToSmallOnReadingTask)
+        registerForNotification(name: .didChangeWindowSizeToLargeOnReadingTask)
+        registerForNotification(name: .didChangeToFirstTextOnReadingTask)
+        registerForNotification(name: .didChangeToSecondTextOnReadingTask)
+        registerForNotification(name: .didChangeToThirdTextOnReadingTask)
+        registerForNotification(name: .showHeadTrackingOnReadingTask)
+        registerForNotification(name: .hideHeadTrackingOnReadingTask)
+        
+        cameraView.isHidden = true
+        
+        setupContentView()
+        setupContentLabel()
+    }
+    
+    override func receivedNotification(_ notification: Notification) {
+        
+        switch notification.name {
+        case .didEnableTrackingOnReadingTask:
+            
+            activateFaceTracking()
+            
+            break
+            
+        case .didDisableTrackingOnReadingTask:
+            
+            deactivateFaceTracking()
+            
+            centralizeContentView()
+            self.view.layoutIfNeeded()
+            setupContentLabel()
+            
+            break
+            
+        case .didChangeWindowSizeToSmallOnReadingTask:
+            
+            updateWindowSize(size: .small)
+            self.view.layoutIfNeeded()
+            setupContentLabel()
+            
+            break
+            
+        case .didChangeWindowSizeToLargeOnReadingTask:
+            
+            updateWindowSize(size: .large)
+            self.view.layoutIfNeeded()
+            setupContentLabel()
+            
+            break
+            
+        case .didChangeToFirstTextOnReadingTask:
+            break
+            
+        case .didChangeToSecondTextOnReadingTask:
+            break
+            
+        case .didChangeToThirdTextOnReadingTask:
+            break
+            
+        case .showHeadTrackingOnReadingTask:
+            
+            cameraView.isHidden = false
+            
+            break
+            
+        case .hideHeadTrackingOnReadingTask:
+            
+            cameraView.isHidden = true
+            
+            break
+            
+        default:
+            break
+        }
+        
         self.view.layoutIfNeeded()
     }
+    
+    private func centralizeContentView() {
+        
+        switch actualWindowSize {
+        case .small:
+            
+            contentViewBottomConstraint.constant = 150
+            contetViewTraillingConstraint.constant = 210
+            
+            break
+            
+        case .large:
+            
+            contentViewBottomConstraint.constant = 75
+            contetViewTraillingConstraint.constant = 125
+        }
+    }
+    
+    private func setupContentView() {
+        
+        centralizeContentView()
+        contentView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+        self.contentView.layer.borderWidth = 1
+    }
+    
+    private func setupContentLabel() {
+        
+        let text = "A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him.A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him.A lion was very angry with a gnat that kept flying and buzzing around his head. The gnat would not quit bothering the lion. “Do you think that you, the great king of all the animals, can make me scared?” the gnat said to the poor lion. The lion just kept trying to hit the gnat with his big paw. All he did was scratch himself with his great claws. The gnat laughed and flew between the big paws and stung the lion on the nose. He then buzzed away laughing at how he had stung the great lion. However, he was so busy thinking of how he would boast that he did not see the spider web. He got stuck in the web of a little spider and that was the end of him."
+        
+        let necessaryLabelHeight = heightForView(text: text, font: UIFont.systemFont(ofSize: 30), width: contentView.frame.width)
+        
+        let proportion = contentLabel.frame.height/necessaryLabelHeight
+        
+        textSplited = getTextToDisplay(text: text, proportion: proportion)
+        
+        self.contentLabel.isHidden = false
+        self.contentLabel.text = textSplited[0]
+        
+        updatePageCountLabel()
+    }
+    
+    private func updatePageCountLabel() {
+        pageCountLabel.text = "Page \(actualTextPage + 1) of \(textSplited.count)"
+    }
+    
+    private func getTextToDisplay(text: String, proportion: CGFloat) -> [String] {
+        
+        var textDivided: [String] = []
+            
+        let parts = Int(ceil(1.0 / proportion))
+        //let parts = Int(round(1.0 / proportion))
+        
+        if parts > 1 {
+            
+            let restOfDivision = text.count % parts
+            let lengthOfEachPartOfTheText = text.count / parts
+//            print("lengthOfEachPartOfTheText: \(lengthOfEachPartOfTheText)")
+            
+            textDivided = text.splitByLength(lengthOfEachPartOfTheText + restOfDivision)
+        } else {
+            textDivided = [text]
+        }
+        
+        print("Parts: \(parts)")
+        print("Text Divided: \(textDivided)")
+        
+        return textDivided
+    }
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat {
+        
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
 
-    private func activateFaceTracking(_ speed: CGFloat = 0.5) {
+        label.sizeToFit()
+        
+        return label.frame.height
+    }
+    
+    private func activateFaceTracking() {
         
         avSession = AVCaptureSession()
         
@@ -88,7 +235,18 @@ class ReadingTaskViewController: UIViewController {
             faceTrackingHelper.maximumBottomConstraintValue = getMaximumBottomConstraintValue()
             faceTrackingHelper.minimumBottomConstraintValue = 30.0
             faceTrackingHelper.minimumLeadingConstraintValue = 30.0
-            faceTrackingHelper.speed = speed
+            
+            switch actualWindowSize {
+            case .small:
+                
+                faceTrackingHelper.speed = 0.8
+                
+                break
+                
+            case .large:
+                
+                faceTrackingHelper.speed = 0.5
+            }
         }
     }
     
@@ -121,6 +279,11 @@ class ReadingTaskViewController: UIViewController {
         return maximumBottomConstraint
     }
     
+    private func restartFaceTracking() {
+        
+        deactivateFaceTracking()
+        activateFaceTracking()
+    }
     
     private func updateWindowSize(size: Size) {
         
@@ -133,9 +296,15 @@ class ReadingTaskViewController: UIViewController {
             self.contentViewWidthConstraint.constant = width
             self.contentViewHeightConstraint.constant = height
             
+            actualWindowSize = .small
             
-            deactivateFaceTracking()
-            activateFaceTracking(0.8)
+            self.view.layoutIfNeeded()
+            
+            if faceTrackingHelper != nil {
+                restartFaceTracking()
+            } else {
+                centralizeContentView()
+            }
             
             break
             
@@ -147,17 +316,18 @@ class ReadingTaskViewController: UIViewController {
             self.contentViewWidthConstraint.constant = width
             self.contentViewHeightConstraint.constant = height
             
-            deactivateFaceTracking()
-            activateFaceTracking(0.5)
+            actualWindowSize = .large
+            
+            self.view.layoutIfNeeded()
+            
+            if faceTrackingHelper != nil {
+                restartFaceTracking()
+            } else {
+                centralizeContentView()
+            }
             
             break
         }
-    }
-    
-    private func updateContentLabelSize() {
-        
-        self.contentLabelWidthConstraint.constant = self.contentViewWidthConstraint.constant * 0.90
-        self.contentViewHeightConstraint.constant = self.contentViewWidthConstraint.constant * 0.75
     }
     
     func getTime() ->NSDate {
@@ -169,13 +339,25 @@ class ReadingTaskViewController: UIViewController {
         return time
     }
     
-    @IBAction func showOrHideCameraView(_ sender: Any) {
+    private func updateLabelText(pageNumber: Int) {
         
-        if cameraView.isHidden {
-            cameraView.isHidden = false
-        } else {
-            cameraView.isHidden = true
+        if pageNumber >= 0 && pageNumber < textSplited.count {
+            actualTextPage = pageNumber
+            contentLabel.text = textSplited[pageNumber]
+            updatePageCountLabel()
+            view.layoutIfNeeded()
         }
+    }
+    
+    @IBAction func goToNextPageAction(_ sender: Any) {
+        print("goToNextPage")
+        updateLabelText(pageNumber: actualTextPage + 1)
+    }
+    
+    @IBAction func goToPreviousPageAction(_ sender: Any) {
+        
+        print("goToPreviousPage")
+        updateLabelText(pageNumber: actualTextPage - 1)
     }
     
 }

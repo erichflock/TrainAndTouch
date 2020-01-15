@@ -2,13 +2,12 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NFU-UO-I5e">
     <device id="ipad10_5" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Book-->
+        <!--Reading Task-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ReadingTaskViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
@@ -121,7 +120,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Book" image="book" id="7TD-Om-XVw"/>
+                    <tabBarItem key="tabBarItem" title="Reading Task" image="book" id="7TD-Om-XVw"/>
                     <connections>
                         <outlet property="cameraView" destination="Rhd-ME-FQr" id="706-jU-NTj"/>
                         <outlet property="cameraViewHeightConstraint" destination="VxH-Cc-ang" id="rLa-Hl-v32"/>
@@ -163,7 +162,7 @@
             </objects>
             <point key="canvasLocation" x="-295.14388489208636" y="-448.20143884892087"/>
         </scene>
-        <!--Touch-->
+        <!--Touch Task-->
         <scene sceneID="5QA-ya-fNy">
             <objects>
                 <viewController id="ryD-mf-EgG" customClass="TouchTaskViewController" customModule="TrainAndTouch" customModuleProvider="target" sceneMemberID="viewController">
@@ -199,7 +198,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rNW-Ak-4vf"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Touch" image="touch" selectedImage="touch" id="o5V-Ud-8Vu">
+                    <tabBarItem key="tabBarItem" title="Touch Task" image="touch" selectedImage="touch" id="o5V-Ud-8Vu">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
                     </tabBarItem>
                     <connections>

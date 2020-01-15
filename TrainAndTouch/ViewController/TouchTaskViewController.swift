@@ -42,10 +42,12 @@ class TouchTaskViewController: UIViewController {
     
     var lastX: CGFloat?
     var lastY: CGFloat?
-    let variationThreshold: CGFloat = 20
-    var applyVariationThreshold = true
     
     var actualWindowSize: Size = .small
+    
+    var numberOfCirclesAdded = 0
+    var numberOfMissedTouches = 0
+    var clicks: [Click] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -193,34 +195,89 @@ class TouchTaskViewController: UIViewController {
     
     func startTouchGame() {
         
+        //reset variables
+        numberOfCirclesAdded = 0
+        numberOfMissedTouches = 0
+        clicks = []
+        
         addCircleOnTouchAreaView()
     }
 
-    @objc func addCircleOnTouchAreaView(_ sender: UITapGestureRecognizer? = nil) {
+    private func addCircleOnTouchAreaView() {
         
-        //remove previous circle
-        touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
+        if !hasReachedThirtyCircles() {
+            
+            numberOfCirclesAdded += 1
+            
+            //remove previous circle
+            touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
+            
+            let xStartPoint: CGFloat = 0
+            let yStartPoint: CGFloat = 0
+            
+            width = getRandomWidth()
+            
+            let randomX = getRandomPositon(startPoint: xStartPoint, constraint: self.touchAreaView.frame.width)
+            let randomY = getRandomPositon(startPoint: yStartPoint, constraint: self.touchAreaView.frame.height)
+            
+            let tapOnCircle = UITapGestureRecognizer(target: self, action: #selector(self.userTappedOnCircle(touch:)))
+                        
+            print("Width: \(width)")
+            print("Random X: \(randomX), Random Y: \(randomY)")
+            
+            let circleView = UIView(frame: CGRect(x: randomX, y: randomY, width: width, height: width))
+            
+            circleView.layer.cornerRadius = circleView.bounds.size.width / 2 // circle shape
+            circleView.backgroundColor = .red
+            circleView.addGestureRecognizer(tapOnCircle)
+            
+            self.touchAreaView.addSubview(circleView)
+            
+            let tapOnWindow = UITapGestureRecognizer(target: self, action: #selector(self.userMissedCircle(touch:)))
+            self.touchAreaView.addGestureRecognizer(tapOnWindow)
+            
+        } else {
+            //remove previous circle
+            touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
+            
+            print("Number of touched circles: \(numberOfCirclesAdded)")
+            print("Number of missed clicks: \(numberOfMissedTouches)")
+        }
+    }
+    
+    @objc private func userTappedOnCircle(touch: UITapGestureRecognizer) {
         
-        let xStartPoint: CGFloat = 0
-        let yStartPoint: CGFloat = 0
+        let x = touch.location(in: self.touchAreaView).x
+        let y = touch.location(in: self.touchAreaView).y
         
-        width = getRandomWidth()
+        let click = Click(x: x, y: y, onTarget: true)
+        clicks.append(click)
         
-        let randomX = getRandomPositon(startPoint: xStartPoint, constraint: self.touchAreaView.frame.width)
-        let randomY = getRandomPositon(startPoint: yStartPoint, constraint: self.touchAreaView.frame.height)
+        print("userTappedOnCircle: \(click)")
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.addCircleOnTouchAreaView(_:)))
+        addCircleOnTouchAreaView()
+    }
+    
+    @objc private func userMissedCircle(touch: UITapGestureRecognizer) {
         
-        print("Width: \(width)")
-        print("Random X: \(randomX), Random Y: \(randomY)")
+        numberOfMissedTouches += 1
         
-        let circleView = UIView(frame: CGRect(x: randomX, y: randomY, width: width, height: width))
+        let x = touch.location(in: self.touchAreaView).x
+        let y = touch.location(in: self.touchAreaView).y
         
-        circleView.layer.cornerRadius = circleView.bounds.size.width / 2 // circle shape
-        circleView.backgroundColor = .red
+        let click = Click(x: x, y: y, onTarget: false)
+        clicks.append(click)
         
-        circleView.addGestureRecognizer(tap)
-        self.touchAreaView.addSubview(circleView)
+        print("userMissedCircle: \(click)")
+    }
+    
+    private func hasReachedThirtyCircles() -> Bool {
+        
+        if numberOfCirclesAdded == 30 {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func getRandomWidth() ->CGFloat {
@@ -374,4 +431,10 @@ extension TouchTaskViewController: AVCaptureVideoDataOutputSampleBufferDelegate 
             }
         }
     }
+}
+
+struct Click {
+    let x: CGFloat
+    let y: CGFloat
+    let onTarget: Bool
 }

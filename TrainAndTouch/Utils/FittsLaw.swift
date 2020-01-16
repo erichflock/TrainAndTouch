@@ -7,46 +7,82 @@
 //
 
 import Foundation
+import UIKit
 
 class FittsLaw {
     
-    /*
-     var meandT = 0.0;
-     var meanID = 0.0;
-     
-     data.forEach(function(item, index, array) {
-         meandT += item[0];
-         meanID += item[1];
-     });
-     
-     meandT /= data.length;
-     meanID /= data.length;
-
-     var sum1 = 0.0;
-     var sum2 = 0.0;
-     
-     data.forEach(function(item, index, array) {
-         var d0 = item[0] - meandT;
-         var d1 = item[1] - meanID;
-         sum1 += d0 * d1;
-         sum2 += d1 * d1;
-     });
-
-     b = sum1/sum2;
-     a = meandT - b * meanID;
-     */
+    var start = Date()
+    var fittsLawElements: [FittsLawElement] = []
     
-    func getA(meandT: Float, meandID: Float, b: Float) -> Float {
+    func getMeanDt() -> TimeInterval {
         
-        return meandT - b * meandID
-    }
-    
-    func getB(means: [Float]) -> Float {
+        var sum: TimeInterval = 0
         
-        for mean in means {
+        for fittsLawElement in fittsLawElements {
             
+            sum += fittsLawElement.dT
         }
         
-        return 0.0
+        if fittsLawElements.count > 0 {
+            return sum / Double(fittsLawElements.count)
+        } else {
+            return sum
+        }
     }
+    
+    func getMeanId() -> CGFloat {
+        
+        var sum: CGFloat = 0
+        
+        for fittsLawElement in fittsLawElements {
+            
+            sum += fittsLawElement.iD
+        }
+        
+        if fittsLawElements.count > 0 {
+            return sum / CGFloat(fittsLawElements.count)
+        } else {
+            return sum
+        }
+    }
+    
+    func getA(meanDT: TimeInterval, meandID: CGFloat, b: CGFloat) -> CGFloat {
+        
+        return CGFloat(meanDT) - b * meandID
+    }
+    
+    func getB(meanDt: TimeInterval, meanId: CGFloat) -> CGFloat {
+        
+        var sum1: CGFloat = 0
+        var sum2: CGFloat = 0
+        
+        for fittsLawElement in fittsLawElements {
+            
+            let d0 = fittsLawElement.dT - meanDt
+            let d1 = fittsLawElement.iD - meanId
+            
+            sum1 += CGFloat(d0) * d1
+            sum2 += d1 * d1
+        }
+        
+        return sum1 / sum2
+    }
+    
+    func getId(d: CGFloat, w: CGFloat) -> CGFloat {
+        
+        return log2((d / w) + 1)
+    }
+    
+    func getDt() -> TimeInterval {
+        
+        let timeInterval = start.timeIntervalSinceNow * -1 // mutiply by -1 in oder to have positive values
+        
+        return timeInterval
+    }
+}
+
+struct FittsLawElement {
+    
+    let dT: TimeInterval //time difference
+    let iD: CGFloat //Index of difficulty
 }

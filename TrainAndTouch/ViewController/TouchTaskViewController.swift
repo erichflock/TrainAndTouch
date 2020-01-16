@@ -11,6 +11,7 @@ import UIKit
 import WebKit
 import Vision
 import AVFoundation
+import MessageUI
 
 class TouchTaskViewController: UIViewController {
 
@@ -25,6 +26,7 @@ class TouchTaskViewController: UIViewController {
     @IBOutlet var cameraView: UIView!
     @IBOutlet var cameraViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var cameraViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var sendReportButton: UIButton!
     
     let borderLimitThreshold: CGFloat = 5.0
     
@@ -42,12 +44,18 @@ class TouchTaskViewController: UIViewController {
     
     var lastX: CGFloat?
     var lastY: CGFloat?
+    var newX: CGFloat?
+    var newY: CGFloat?
     
     var actualWindowSize: Size = .small
     
     var numberOfCirclesAdded = 0
     var numberOfMissedTouches = 0
     var clicks: [Click] = []
+    
+    var fittsLaw: FittsLaw?
+    
+    var timeSpentOnTheTask: Date?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -195,10 +203,16 @@ class TouchTaskViewController: UIViewController {
     
     func startTouchGame() {
         
+        sendReportButton.isHidden = true
+        
         //reset variables
         numberOfCirclesAdded = 0
         numberOfMissedTouches = 0
         clicks = []
+        
+        prepareVariablesForNextTouchInteraction()
+        
+        fittsLaw = FittsLaw()
         
         addCircleOnTouchAreaView()
     }
@@ -207,25 +221,24 @@ class TouchTaskViewController: UIViewController {
         
         if !hasReachedThirtyCircles() {
             
+            fittsLaw?.start = Date()
+            
             numberOfCirclesAdded += 1
             
             //remove previous circle
             touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
             
-            let xStartPoint: CGFloat = 0
-            let yStartPoint: CGFloat = 0
-            
-            width = getRandomWidth()
-            
-            let randomX = getRandomPositon(startPoint: xStartPoint, constraint: self.touchAreaView.frame.width)
-            let randomY = getRandomPositon(startPoint: yStartPoint, constraint: self.touchAreaView.frame.height)
-            
             let tapOnCircle = UITapGestureRecognizer(target: self, action: #selector(self.userTappedOnCircle(touch:)))
                         
             print("Width: \(width)")
-            print("Random X: \(randomX), Random Y: \(randomY)")
             
-            let circleView = UIView(frame: CGRect(x: randomX, y: randomY, width: width, height: width))
+            distance = getNextDistance(lastX: lastX ?? 0, lastY: lastY ?? 0, newX: newX ?? 0, newY: newY ?? 0)
+            
+            print("last X: \(String(describing: lastX)), last Y: \(String(describing: lastY))")
+            print("New X: \(newX), New Y: \(newY)")
+            print("Distance: \(distance)")
+            
+            let circleView = UIView(frame: CGRect(x: newX ?? 0, y: newY ?? 0, width: width, height: width))
             
             circleView.layer.cornerRadius = circleView.bounds.size.width / 2 // circle shape
             circleView.backgroundColor = .red
@@ -240,20 +253,44 @@ class TouchTaskViewController: UIViewController {
             //remove previous circle
             touchAreaView.subviews.forEach({ $0.removeFromSuperview() })
             
-            print("Number of touched circles: \(numberOfCirclesAdded)")
-            print("Number of missed clicks: \(numberOfMissedTouches)")
+            sendReportButton.isHidden = false
         }
     }
     
     @objc private func userTappedOnCircle(touch: UITapGestureRecognizer) {
         
-        let x = touch.location(in: self.touchAreaView).x
-        let y = touch.location(in: self.touchAreaView).y
+//        let x = touch.location(in: self.touchAreaView).x
+//        let y = touch.location(in: self.touchAreaView).y
         
-        let click = Click(x: x, y: y, onTarget: true)
-        clicks.append(click)
+        // if time is nil, we should initialize it, meaning the first user interaction and the beggining of the task
         
-        print("userTappedOnCircle: \(click)")
+        if timeSpentOnTheTask == nil {
+            timeSpentOnTheTask = Date()
+        }
+        
+        if let fittsLaw = self.fittsLaw {
+            
+            let id = fittsLaw.getId(d: distance, w: width)
+            let dt = fittsLaw.getDt()
+                    
+            let fittsLawElement = FittsLawElement(dT: dt, iD: id)
+            fittsLaw.fittsLawElements.append(fittsLawElement)
+                
+            let meanDt = fittsLaw.getMeanDt()
+            let meanId = fittsLaw.getMeanId()
+                    
+            let b = fittsLaw.getB(meanDt: meanDt, meanId: meanId)
+            let a = fittsLaw.getA(meanDT: meanDt, meandID: meanId, b: b)
+            
+            let movementTime = (a + b) * id
+            
+            let click = Click(x: newX ?? 0, y: newY ?? 0, lastX: lastX ?? 0, lastY: lastY ?? 0, a: a, b: b, dT: dt, id: id, distance: distance, width: width, movementTime: movementTime, onTarget: true)
+            clicks.append(click)
+            
+            print("userTappedOnCircle: \(click)")
+            
+            prepareVariablesForNextTouchInteraction()
+        }
         
         addCircleOnTouchAreaView()
     }
@@ -265,10 +302,33 @@ class TouchTaskViewController: UIViewController {
         let x = touch.location(in: self.touchAreaView).x
         let y = touch.location(in: self.touchAreaView).y
         
-        let click = Click(x: x, y: y, onTarget: false)
-        clicks.append(click)
-        
-        print("userMissedCircle: \(click)")
+        if let fittsLaw = self.fittsLaw {
+            
+            let id = fittsLaw.getId(d: distance, w: width)
+            let dt = fittsLaw.getDt()
+                
+            let meanDt = fittsLaw.getMeanDt()
+            let meanId = fittsLaw.getMeanId()
+                    
+            let b = fittsLaw.getB(meanDt: meanDt, meanId: meanId)
+            let a = fittsLaw.getA(meanDT: meanDt, meandID: meanId, b: b)
+            
+            let movementTime = (a + b) * id
+            
+            let click = Click(x: x, y: y, lastX: lastX ?? 0, lastY: lastY ?? 0, a: a, b: b, dT: dt, id: id, distance: distance, width: width, movementTime: movementTime, onTarget: false)
+            clicks.append(click)
+            
+            print("userMissedCircle: \(click)")
+        }
+    }
+    
+    private func prepareVariablesForNextTouchInteraction() {
+
+        width = getRandomWidth()
+        lastX = newX
+        lastY = newY
+        newX = getRandomPositon(startPoint: 0, constraint: touchAreaView.frame.width)
+        newY = getRandomPositon(startPoint: 0, constraint: touchAreaView.frame.height)
     }
     
     private func hasReachedThirtyCircles() -> Bool {
@@ -297,10 +357,7 @@ class TouchTaskViewController: UIViewController {
         return randomPosition
     }
     
-    private func getNextDistance(lastX: CGFloat, lastY: CGFloat) -> CGFloat{
-        
-        let newX = getRandomPositon(startPoint: 0, constraint: touchAreaView.frame.width)
-        let newY = getRandomPositon(startPoint: 0, constraint: touchAreaView.frame.height)
+    private func getNextDistance(lastX: CGFloat, lastY: CGFloat, newX: CGFloat, newY: CGFloat) -> CGFloat{
 
         let diffX = newX - lastX
         let diffY = newY - lastY
@@ -377,6 +434,38 @@ class TouchTaskViewController: UIViewController {
             touchAreaViewTraillingConstraint.constant = 125
         }
     }
+    
+    private func getReport() -> String {
+        
+        let timeDuration = (timeSpentOnTheTask?.timeIntervalSinceNow ?? 0) * -1
+        
+        var headTrackingEnabled = false
+        
+        if faceTrackingHelper != nil {
+            headTrackingEnabled = true
+        }
+        
+        let taskSetup = "Screen Size: \(actualWindowSize), Head Tracking Enabled: \(headTrackingEnabled)"
+        let taskResults = "Number of touched circles: \(numberOfCirclesAdded) \n\nNumber of missed clicks: \(numberOfMissedTouches)\n\nTime spent on the task: \(timeDuration)\n\nClicks: \n\n\(clicks)"
+        
+        return "Task Setup: \(taskSetup) \n\n Task Results: \(taskResults)"
+    }
+    
+    @IBAction func sendReportByEmail(_ sender: Any) {
+        
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["flock91@gmail.com"])
+            mail.setSubject("Train & Touch - User Study")
+            mail.setMessageBody(getReport(), isHTML: true)
+
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+    
 }
 
 public extension CGFloat {
@@ -433,8 +522,24 @@ extension TouchTaskViewController: AVCaptureVideoDataOutputSampleBufferDelegate 
     }
 }
 
+extension TouchTaskViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+}
+
 struct Click {
     let x: CGFloat
     let y: CGFloat
+    let lastX: CGFloat
+    let lastY: CGFloat
+    let a: CGFloat
+    let b: CGFloat
+    let dT: TimeInterval
+    let id: CGFloat
+    let distance: CGFloat
+    let width: CGFloat
+    let movementTime: CGFloat
     let onTarget: Bool
 }

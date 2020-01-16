@@ -186,13 +186,22 @@
                                     <constraint firstAttribute="height" constant="200" id="gLJ-AR-PGO"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QmR-sN-k1D">
+                                <rect key="frame" x="976" y="50" width="86" height="30"/>
+                                <state key="normal" title="Send Report"/>
+                                <connections>
+                                    <action selector="sendReportByEmail:" destination="ryD-mf-EgG" eventType="touchUpInside" id="CZo-GL-1gh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="QmR-sN-k1D" firstAttribute="top" secondItem="rNW-Ak-4vf" secondAttribute="top" constant="50" id="8Pd-Ts-ec5"/>
                             <constraint firstItem="rNW-Ak-4vf" firstAttribute="bottom" secondItem="ZEH-ho-kDa" secondAttribute="bottom" constant="30" id="8nv-1a-hdR"/>
                             <constraint firstItem="rNW-Ak-4vf" firstAttribute="bottom" secondItem="alQ-Bl-Mwr" secondAttribute="bottom" constant="100" id="ATX-jl-Na4"/>
                             <constraint firstItem="rNW-Ak-4vf" firstAttribute="trailing" secondItem="alQ-Bl-Mwr" secondAttribute="trailing" constant="200" id="AtZ-HN-8gj"/>
                             <constraint firstItem="alQ-Bl-Mwr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bQr-Nl-Yy8" secondAttribute="top" constant="30" id="Ha7-2c-5n1"/>
+                            <constraint firstItem="rNW-Ak-4vf" firstAttribute="trailing" secondItem="QmR-sN-k1D" secondAttribute="trailing" constant="50" id="gIh-dl-1Tc"/>
                             <constraint firstItem="alQ-Bl-Mwr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rNW-Ak-4vf" secondAttribute="leading" constant="30" id="orY-dj-9JR"/>
                             <constraint firstItem="ZEH-ho-kDa" firstAttribute="leading" secondItem="bQr-Nl-Yy8" secondAttribute="leading" constant="16" id="pcM-9X-Zkf"/>
                         </constraints>
@@ -205,6 +214,7 @@
                         <outlet property="cameraView" destination="ZEH-ho-kDa" id="Mz0-Hg-MvX"/>
                         <outlet property="cameraViewHeightConstraint" destination="gLJ-AR-PGO" id="xjn-Yc-2EK"/>
                         <outlet property="cameraViewWidthConstraint" destination="XTs-iA-ZCr" id="8PM-hu-Y6n"/>
+                        <outlet property="sendReportButton" destination="QmR-sN-k1D" id="QX7-AO-2gB"/>
                         <outlet property="touchAreaView" destination="alQ-Bl-Mwr" id="0YC-Km-IH2"/>
                         <outlet property="touchAreaViewBottomConstraint" destination="ATX-jl-Na4" id="Fh2-64-RCc"/>
                         <outlet property="touchAreaViewHeightConstraint" destination="D6n-oG-VRx" id="ZZ8-Gh-xcL"/>

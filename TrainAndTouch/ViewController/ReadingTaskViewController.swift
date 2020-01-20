@@ -69,6 +69,7 @@ class ReadingTaskViewController: UIViewController {
         registerForNotification(name: .didChangeToFirstTextOnReadingTask)
         registerForNotification(name: .didChangeToSecondTextOnReadingTask)
         registerForNotification(name: .didChangeToThirdTextOnReadingTask)
+        registerForNotification(name: .didChangeToFourthTextOnReadingTask)
         registerForNotification(name: .showHeadTrackingOnReadingTask)
         registerForNotification(name: .hideHeadTrackingOnReadingTask)
         
@@ -133,6 +134,14 @@ class ReadingTaskViewController: UIViewController {
         case .didChangeToThirdTextOnReadingTask:
             
             actualText = getThirdText()
+            self.view.layoutIfNeeded()
+            setupContentLabel(text: actualText)
+            
+            break
+            
+        case .didChangeToFourthTextOnReadingTask:
+            
+            actualText = getFourthText()
             self.view.layoutIfNeeded()
             setupContentLabel(text: actualText)
             
@@ -383,7 +392,12 @@ class ReadingTaskViewController: UIViewController {
     
     private func getThirdText() -> String {
         
-        return "TEXTO 3: A cigarra e a formiga \n\nA Wolf had been feasting too greedily, and a bone had stuck crosswise in his throat. He could get it neither up nor down, and of course he could not eat a thing. Naturally that was an awful state of affairs for a greedy Wolf. So away he hurried to the Crane. He was sure that she, with her long neck and bill, would easily be able to reach the bone and pull it out. \"I will reward you very handsomely,\" said the Wolf, \"if you pull that bone out for me.\" The Crane, as you can imagine, was very uneasy about putting her head in a Wolf's throat. But she was grasping in nature, so she did what the Wolf asked her to do. When the Wolf felt that the bone was gone, he started to walk away. \"But what about my reward!\" called the Crane anxiously. \"What!\" snarled the Wolf, whirling around. \"Haven't you got it? Isn't it enough that I let you take your head out of my mouth without snapping it off?\""
+        return "The Wolf & the Crane \n\nA Wolf had been feasting too greedily, and a bone had stuck crosswise in his throat. He could get it neither up nor down, and of course he could not eat a thing. Naturally that was an awful state of affairs for a greedy Wolf. So away he hurried to the Crane. He was sure that she, with her long neck and bill, would easily be able to reach the bone and pull it out. \"I will reward you very handsomely,\" said the Wolf, \"if you pull that bone out for me.\" The Crane, as you can imagine, was very uneasy about putting her head in a Wolf's throat. But she was grasping in nature, so she did what the Wolf asked her to do. When the Wolf felt that the bone was gone, he started to walk away. \"But what about my reward!\" called the Crane anxiously. \"What!\" snarled the Wolf, whirling around. \"Haven't you got it? Isn't it enough that I let you take your head out of my mouth without snapping it off?\""
+    }
+    
+    private func getFourthText() -> String {
+        
+        return "The Wolf in Sheep's Clothing \n\nA certain Wolf could not get enough to eat because of the watchfulness of the Shepherds. But one night he found a sheep skin that had been cast aside and forgotten. The next day, dressed in the skin, the Wolf strolled into the pasture with the Sheep. Soon a little Lamb was following him about and was quickly led away to slaughter. That evening the Wolf entered the fold with the flock. But it happened that the Shepherd took a fancy for mutton broth that very evening, and, picking up a knife, went to the fold. There the first he laid hands on and killed was the Wolf."
     }
     
     private func startTimer() {

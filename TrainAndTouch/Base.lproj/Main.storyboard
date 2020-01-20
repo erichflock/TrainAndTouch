@@ -348,7 +348,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tda-Qp-heK" customClass="DLRadioButton">
-                                                    <rect key="frame" x="1000" y="10" width="80" height="24"/>
+                                                    <rect key="frame" x="900" y="10" width="80" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="CfU-sm-WzL"/>
                                                     </constraints>
@@ -364,10 +364,31 @@
                                                         <action selector="readingTaskThirdTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="aMY-B3-u9F"/>
                                                         <outletCollection property="otherButtons" destination="nnc-D8-LiI" id="7FN-mi-5QR"/>
                                                         <outletCollection property="otherButtons" destination="2Kc-j7-iMf" id="pdH-Df-Tif"/>
+                                                        <outletCollection property="otherButtons" destination="6HO-LF-rRD" id="lpX-eN-vqC"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6HO-LF-rRD" customClass="DLRadioButton">
+                                                    <rect key="frame" x="1012" y="10" width="80" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="eP3-69-Xa0"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Text 4">
+                                                        <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                            <real key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="readingTaskFourthTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="RmR-v4-IHE"/>
+                                                        <outletCollection property="otherButtons" destination="tda-Qp-heK" id="Jef-5Z-XXA"/>
+                                                        <outletCollection property="otherButtons" destination="nnc-D8-LiI" id="jYX-Kq-bxb"/>
+                                                        <outletCollection property="otherButtons" destination="2Kc-j7-iMf" id="cbz-df-n41"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnc-D8-LiI" customClass="DLRadioButton">
-                                                    <rect key="frame" x="888" y="10" width="80" height="24"/>
+                                                    <rect key="frame" x="788" y="10" width="80" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="HCu-v2-Sk0"/>
                                                     </constraints>
@@ -383,10 +404,11 @@
                                                         <action selector="readingTaskSecondTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="lAP-7P-bdJ"/>
                                                         <outletCollection property="otherButtons" destination="tda-Qp-heK" id="FLO-gf-Hra"/>
                                                         <outletCollection property="otherButtons" destination="2Kc-j7-iMf" id="Lbd-Pv-SKX"/>
+                                                        <outletCollection property="otherButtons" destination="6HO-LF-rRD" id="qku-by-aM6"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kc-j7-iMf" customClass="DLRadioButton">
-                                                    <rect key="frame" x="776" y="10" width="80" height="24"/>
+                                                    <rect key="frame" x="676" y="10" width="80" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="k1x-Bq-RU5"/>
                                                     </constraints>
@@ -402,6 +424,7 @@
                                                         <action selector="readingTaskFirstTextAction:" destination="cT8-ys-Yav" eventType="touchUpInside" id="oM4-GU-6la"/>
                                                         <outletCollection property="otherButtons" destination="tda-Qp-heK" id="Xol-PF-WEa"/>
                                                         <outletCollection property="otherButtons" destination="nnc-D8-LiI" id="fKY-CZ-B2U"/>
+                                                        <outletCollection property="otherButtons" destination="6HO-LF-rRD" id="mMD-Uz-aA2"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -410,14 +433,17 @@
                                                 <constraint firstAttribute="bottom" secondItem="tda-Qp-heK" secondAttribute="bottom" constant="10" id="3VR-Ow-zSt"/>
                                                 <constraint firstItem="wCk-FP-Hko" firstAttribute="top" secondItem="Kog-ed-lEF" secondAttribute="top" constant="16" id="ANV-Iz-fWb"/>
                                                 <constraint firstItem="wCk-FP-Hko" firstAttribute="leading" secondItem="Kog-ed-lEF" secondAttribute="leading" constant="32" id="D3E-y4-BN0"/>
-                                                <constraint firstItem="2Kc-j7-iMf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wCk-FP-Hko" secondAttribute="trailing" constant="8" symbolic="YES" id="Enf-JM-58v"/>
                                                 <constraint firstAttribute="bottom" secondItem="2Kc-j7-iMf" secondAttribute="bottom" constant="10" id="Jcj-QT-lEa"/>
                                                 <constraint firstItem="2Kc-j7-iMf" firstAttribute="top" secondItem="Kog-ed-lEF" secondAttribute="top" constant="10" id="Jkc-gY-re8"/>
-                                                <constraint firstAttribute="trailing" secondItem="tda-Qp-heK" secondAttribute="trailing" constant="32" id="SoS-zQ-8c2"/>
+                                                <constraint firstItem="6HO-LF-rRD" firstAttribute="top" secondItem="Kog-ed-lEF" secondAttribute="top" constant="10" id="NuO-a6-XWm"/>
                                                 <constraint firstItem="nnc-D8-LiI" firstAttribute="top" secondItem="Kog-ed-lEF" secondAttribute="top" constant="10" id="byf-5B-PhS"/>
+                                                <constraint firstItem="2Kc-j7-iMf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wCk-FP-Hko" secondAttribute="trailing" constant="8" symbolic="YES" id="fm9-bG-c5P"/>
                                                 <constraint firstAttribute="bottom" secondItem="nnc-D8-LiI" secondAttribute="bottom" constant="10" id="mip-ss-pLU"/>
+                                                <constraint firstAttribute="bottom" secondItem="6HO-LF-rRD" secondAttribute="bottom" constant="10" id="nGK-b3-JVE"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wCk-FP-Hko" secondAttribute="trailing" constant="20" symbolic="YES" id="stw-ux-Wxs"/>
+                                                <constraint firstItem="6HO-LF-rRD" firstAttribute="trailing" secondItem="Kog-ed-lEF" secondAttribute="trailingMargin" id="tIl-VC-Tut"/>
                                                 <constraint firstItem="tda-Qp-heK" firstAttribute="top" secondItem="Kog-ed-lEF" secondAttribute="top" constant="10" id="v25-nI-yb5"/>
+                                                <constraint firstItem="6HO-LF-rRD" firstAttribute="leading" secondItem="tda-Qp-heK" secondAttribute="trailing" constant="32" id="w8D-EY-Xbp"/>
                                                 <constraint firstItem="tda-Qp-heK" firstAttribute="leading" secondItem="nnc-D8-LiI" secondAttribute="trailing" constant="32" id="zOW-c0-8wH"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -592,6 +618,7 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="uf1-Wp-BMs"/>
                     <connections>
                         <outlet property="readingTaskFirstTextButton" destination="2Kc-j7-iMf" id="cHE-fH-Nia"/>
+                        <outlet property="readingTaskFourthTextButton" destination="6HO-LF-rRD" id="OCZ-Sb-9UX"/>
                         <outlet property="readingTaskSecondTextButton" destination="nnc-D8-LiI" id="OkX-RB-mMF"/>
                         <outlet property="readingTaskShowHeadTrackingSwitch" destination="Vro-lV-COP" id="ESE-x0-OZC"/>
                         <outlet property="readingTaskThirdTextButton" destination="tda-Qp-heK" id="CDL-67-QqC"/>

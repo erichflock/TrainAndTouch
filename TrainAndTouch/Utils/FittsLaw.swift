@@ -11,7 +11,8 @@ import UIKit
 
 class FittsLaw {
     
-    var start = Date()
+    var touchStart = Date()
+    var touchEnd: Date?
     var fittsLawElements: [FittsLawElement] = []
     
     func getMeanDt() -> TimeInterval {
@@ -75,7 +76,7 @@ class FittsLaw {
     
     func getDt() -> TimeInterval {
         
-        let timeInterval = start.timeIntervalSinceNow * -1 // mutiply by -1 in oder to have positive values
+        let timeInterval = touchStart.timeIntervalSinceNow * -1 // mutiply by -1 in oder to have positive values
         
         return timeInterval
     }

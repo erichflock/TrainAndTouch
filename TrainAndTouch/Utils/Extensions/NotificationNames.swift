@@ -26,6 +26,8 @@ extension Notification.Name {
 
     static let didChangeToThirdTextOnReadingTask = Notification.Name("didChangeToThirdTextOnReadingTask")
     
+    static let didChangeToFourthTextOnReadingTask = Notification.Name("didChangeToFourthTextOnReadingTask")
+    
     static let showHeadTrackingOnReadingTask = Notification.Name("showHeadTrackingOnReadingTask")
     
     static let hideHeadTrackingOnReadingTask = Notification.Name("hideHeadTrackingOnReadingTask")

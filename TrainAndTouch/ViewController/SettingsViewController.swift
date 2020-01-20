@@ -19,6 +19,7 @@ class SettingsViewController : UITableViewController {
     @IBOutlet var readingTaskFirstTextButton: UIButton!
     @IBOutlet var readingTaskSecondTextButton: UIButton!
     @IBOutlet var readingTaskThirdTextButton: UIButton!
+    @IBOutlet var readingTaskFourthTextButton: UIButton!
     @IBOutlet var readingTaskShowHeadTrackingSwitch: UISwitch!
     
     //MARK: Touch Task UI Elements
@@ -86,6 +87,12 @@ class SettingsViewController : UITableViewController {
         
         NotificationCenter.default.post(Notification(name: .didChangeToThirdTextOnReadingTask))
         print("Change to Third Text on Reading Task")
+    }
+    
+    @IBAction func readingTaskFourthTextAction(_ sender: Any) {
+        
+        NotificationCenter.default.post(Notification(name: .didChangeToFourthTextOnReadingTask))
+        print("Change to Fourth Text on Reading Task")
     }
     
     @IBAction func readingTaskShowHeadTrackingSwitchToggleAction(_ sender: Any) {

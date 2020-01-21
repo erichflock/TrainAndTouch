@@ -110,8 +110,8 @@
             filePath = "TrainAndTouch/ViewController/TouchTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "462"
-            endingLineNumber = "462"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "sendReportByEmail(_:)"
             landmarkType = "7">
          </BreakpointContent>

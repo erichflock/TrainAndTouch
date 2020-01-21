@@ -443,6 +443,20 @@ class TouchTaskViewController: UIViewController {
         }
     }
     
+    private func buildCsvStringFromClickObjects() -> String {
+        
+        var csvString = "touchStart, touchEnd, touchX, touchY, targetX, targetY, lastX, lastY, a, b, dT, id, distance, width, movementTime, onTarget" //headers
+        
+        for click in clicks {
+            
+            csvString += "\n"
+            
+            csvString += "\(click.touchStart), \(click.touchEnd), \(click.touchX), \(click.touchY), \(click.targetX), \(click.targetY), \(click.lastX), \(click.lastY), \(click.a) ,\(click.b) ,\(click.dT), \(click.id), \(click.distance), \(click.width), \(click.movementTime), \(click.onTarget)"
+        }
+        
+        return csvString
+    }
+    
     private func getReport() -> String {
         
         var headTrackingEnabled = false
@@ -452,7 +466,9 @@ class TouchTaskViewController: UIViewController {
         }
         
         let taskSetup = "Screen Size: \(actualWindowSize), Head Tracking Enabled: \(headTrackingEnabled)"
-        let taskResults = "Number of touched circles: \(numberOfCirclesAdded) \n\nNumber of missed clicks: \(numberOfMissedTouches)\n\nTime spent on the task: \(timeDuration ?? 0)\n\nClicks: \n\n\(clicks)"
+        let taskResults = "Number of touched circles: \(numberOfCirclesAdded) \n\nNumber of missed clicks: \(numberOfMissedTouches)\n\nTime spent on the task: \(timeDuration ?? 0)"
+        
+        let clickObjectsParsedToCsvString = buildCsvStringFromClickObjects()
         
         return "Task Setup: \(taskSetup) \n\n Task Results: \(taskResults)"
     }
@@ -465,7 +481,13 @@ class TouchTaskViewController: UIViewController {
             mail.setToRecipients(["flock91@gmail.com"])
             mail.setSubject("Train & Touch - User Study")
             mail.setMessageBody(getReport(), isHTML: true)
-
+            
+            let clickObjectsParsedToCsvString = buildCsvStringFromClickObjects()
+            
+            let data = Data(clickObjectsParsedToCsvString.utf8)
+            
+            mail.addAttachmentData(data, mimeType: "text", fileName: "Clicks.csv")
+            
             present(mail, animated: true)
         } else {
             // show failure alert
